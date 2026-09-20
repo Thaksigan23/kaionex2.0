@@ -1,4 +1,4 @@
-# KAIONEX
+# KAIONEX web
 
 Premium marketing website for the KAIONEX connected business software ecosystem by [Techloom.ai](https://techloom.ai).
 
