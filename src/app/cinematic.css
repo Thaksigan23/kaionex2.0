@@ -51,15 +51,15 @@
 .kx-cinematic .cine-pos-layer .kx-app-window > div:first-child { padding:20px; }
 .kx-cinematic .cine-pos-layer .kx-app-window > .grid > div { padding:20px; }
 .kx-cinematic .cine-pos-layer .kx-app-window .space-y-1\.5 { display:grid; gap:10px; }
-@media (min-width:1100px) and (min-height:860px) and (prefers-reduced-motion:no-preference) {
+@media (min-width:1100px) and (prefers-reduced-motion:no-preference) {
   .cine-opening { height:215svh; }
   .cine-opening-sticky { position:sticky; top:60px; height:calc(100svh - 60px); overflow:clip; }
   .cine-opening-inner { width:min(100% - 6vw,var(--cine-max)); height:100%; display:block; position:relative; }
   .cine-topline { position:absolute; inset:0 0 auto; padding:25px 0; }
   .cine-hero-copy,.cine-opening-pos-copy { position:absolute; left:0; top:11%; width:44%; padding:0; border:0; }
-  .cine-hero-copy h1 { font-size:clamp(52px,5.2vw,86px); line-height:1.02; letter-spacing:-.06em; }
+  .cine-hero-copy h1 { font-size:clamp(50px,5vw,84px); line-height:1.02; letter-spacing:-.06em; }
   .cine-opening-pos-copy { top:16%; }
-  .cine-opening-pos-copy h2 { font-size:clamp(80px,8vw,122px); }
+  .cine-opening-pos-copy h2 { font-size:clamp(74px,7.5vw,118px); }
   .cine-hero-copy .cine-eyebrow { margin-bottom:18px; font-size:9px; }
   .cine-opening-visual { display:block; position:absolute; left:45%; top:11%; width:55%; max-width:870px; transform-origin:center; }
   .cine-overview-layer { padding:0; }
@@ -69,12 +69,24 @@
   .cine-opening-progress { position:absolute; inset:auto 0 0; }
 }
 @media (min-width:1100px) and (max-height:850px) {
-  .cine-hero-copy { top:7%; }
-  .cine-hero-copy h1 { font-size:clamp(46px,4.8vw,72px); }
+  .cine-hero-copy, .cine-opening-visual { top:6%; }
+  .cine-hero-copy h1 { font-size:clamp(42px,4.5vw,68px); }
   .cine-hero-copy .cine-intro { margin-top:14px; }
   .cine-hero-copy .cine-actions { margin-top:18px; }
   .cine-hero-copy .cine-status-treatment { margin-top:16px; }
-  .cine-opening-visual { top:7%; }
+  .cine-opening-pos-copy { top:10%; }
+  .cine-opening-pos-copy h2 { font-size:clamp(60px,6.5vw,90px); }
+  .cine-opening-pos-copy .cine-chapter-detail { margin-top:12px; }
+}
+@media (min-width:1100px) and (max-height:740px) {
+  .cine-hero-copy, .cine-opening-visual { top:3.5%; }
+  .cine-hero-copy h1 { font-size:clamp(36px,3.8vw,56px); }
+  .cine-hero-copy .cine-intro { margin-top:10px; font-size:13px; line-height:1.5; }
+  .cine-hero-copy .cine-actions { margin-top:14px; }
+  .cine-hero-copy .cine-status-treatment { margin-top:12px; }
+  .cine-topline { padding:14px 0; }
+  .cine-opening-pos-copy { top:6%; }
+  .cine-opening-pos-copy h2 { font-size:clamp(50px,5.5vw,78px); }
 }
 @media (max-width:639px) {
   .cine-topline { font-size:7px; gap:10px; }
@@ -130,7 +142,7 @@
 .cine-outcome-detail { font-size:12px; color:var(--cine-copy); margin-top:6px; line-height:1.5; }
 .cine-bridge-chip { display:inline-flex; align-items:center; gap:8px; padding:5px 12px; background:rgba(18,201,140,.09); border:1px solid rgba(18,201,140,.28); border-radius:9999px; font-size:11px; font-family:var(--font-geist-mono),monospace; color:var(--cine-signal); letter-spacing:.03em; margin-top:18px; margin-bottom:6px; width:fit-content; }
 .cine-bridge-dot { width:6px; height:6px; border-radius:50%; background:var(--cine-signal); box-shadow:0 0 6px var(--cine-signal); flex-shrink:0; }
-@media (min-width:1100px) and (min-height:860px) and (prefers-reduced-motion:no-preference) {
+@media (min-width:1100px) and (prefers-reduced-motion:no-preference) {
   .cine-chapter { padding:0; height:150svh; }
   .cine-chapter-sticky { position:sticky; top:60px; min-height:calc(100svh - 60px); display:flex; align-items:center; }
   .cine-chapter-inner { grid-template-columns:minmax(0,.37fr) minmax(0,.63fr); gap:5vw; align-items:center; padding-block:35px; }
@@ -167,7 +179,21 @@
 }
 @media (prefers-reduced-motion:reduce) {
   .cine-opening,.cine-chapter,.cine-connection { height:auto; }
-  .cine-opening-sticky,.cine-chapter-sticky,.cine-connection-sticky { position:relative; height:auto; }
+  .cine-opening-sticky,.cine-chapter-sticky,.cine-connection-sticky { position:relative; height:auto; top:auto; }
+  .cine-opening-pos-copy, .cine-pos-layer { display:none !important; }
+  .cine-overview-layer { opacity:1 !important; }
+}
+@media (min-width:1100px) and (prefers-reduced-motion:reduce) {
+  .cine-opening { height:auto; padding:40px 0 60px; }
+  .cine-opening-inner { display:grid; grid-template-columns:minmax(0,.44fr) minmax(0,.56fr); gap:4vw; align-items:center; }
+  .cine-topline { position:static; grid-column:1 / -1; padding:0 0 20px; }
+  .cine-hero-copy { position:static; width:100%; padding:0; }
+  .cine-opening-visual { position:static; width:100%; max-width:870px; display:block; }
+  .cine-chapter-inner { grid-template-columns:minmax(0,.37fr) minmax(0,.63fr); gap:5vw; align-items:center; }
+  .cine-chapter-reverse .cine-chapter-inner { grid-template-columns:minmax(0,.61fr) minmax(0,.39fr); }
+  .cine-chapter-reverse .cine-chapter-copy { order:2; }
+  .cine-chapter-reverse .cine-chapter-screen { order:1; }
+  .cine-chapter-wide .cine-chapter-inner { grid-template-columns:minmax(0,.34fr) minmax(0,.66fr); gap:4vw; }
 }
 .cine-ecosystem-reveal { padding:110px 0 70px; overflow:clip; }
 .cine-payoff-heading { width:min(100% - 7vw,var(--cine-max)); margin:0 auto 60px; }
@@ -228,13 +254,13 @@
   .cine-final-network { flex-wrap:wrap; justify-content:center; }
   .cine-final-network strong { order:-1; width:100%; padding-bottom:15px; }
 }
-@media (min-width:1100px) and (min-height:860px) and (prefers-reduced-motion:no-preference) {
-  .cine-hero-copy h1 { font-size:clamp(60px,5.5vw,88px); }
+@media (min-width:1100px) and (prefers-reduced-motion:no-preference) {
+  .cine-hero-copy h1 { font-size:clamp(52px,5.2vw,86px); }
   .cine-opening-pos-copy,.cine-pos-layer { opacity:0; }
 }
 @media (min-width:1100px) and (max-height:850px) and (prefers-reduced-motion:no-preference) {
-  .cine-hero-copy h1 { font-size:clamp(54px,4.8vw,72px); }
-  .cine-opening-pos-copy h2 { font-size:clamp(68px,6.7vw,96px); }
+  .cine-hero-copy h1 { font-size:clamp(44px,4.5vw,68px); }
+  .cine-opening-pos-copy h2 { font-size:clamp(60px,6.5vw,90px); }
   .cine-opening-pos-copy .cine-chapter-detail { margin-top:14px; }
 }
 /* Reserve space for state changes inside the illustrative interfaces. */
