@@ -10,10 +10,10 @@ import { cn } from "@/lib/utils";
 const bars = [36, 48, 42, 60, 54, 72, 68];
 const STEP_COUNT = 6;
 
-export function FmsDemo() {
+export function FmsDemo({ storyMode = false }: { storyMode?: boolean }) {
   const { ref, step, reduce, setStep, restart } = useDemoCycle(STEP_COUNT, 2300);
 
-  const revenue = step >= 2 ? "$48.6k" : "$48.2k";
+  const revenue = storyMode ? (step >= 2 ? "$48,240.70" : "$48,200.00") : step >= 2 ? "$48.6k" : "$48.2k";
   const invoicePaid = step >= 3;
   const chartBoost = step >= 4;
   const showTxn = step >= 1;
@@ -82,7 +82,7 @@ export function FmsDemo() {
                   className="flex items-center justify-between rounded-xl border border-brand/20 bg-brand/5 px-3 py-2 text-sm"
                 >
                   <span className="text-navy-900">POS sale · #POS-8841</span>
-                  <span className="font-semibold text-brand">+$61.05</span>
+                  <span className="font-semibold text-brand">{storyMode ? "+$40.70" : "+$61.05"}</span>
                 </motion.div>
               ) : null}
             </AnimatePresence>

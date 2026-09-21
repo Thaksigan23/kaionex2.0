@@ -16,7 +16,7 @@ export function FAQSection() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="bg-paper py-14 sm:py-16 lg:py-16">
+    <section className="cine-faq bg-paper py-14 sm:py-16 lg:py-16">
       <Container className="max-w-3xl">
         <Reveal>
           <SectionHeading

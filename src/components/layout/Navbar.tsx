@@ -103,8 +103,8 @@ export function Navbar() {
         className={cn(
           "border-b transition-all duration-300",
           scrolled
-            ? "border-white/12 bg-navy-950 py-2.5 shadow-[0_8px_32px_rgba(7,17,31,0.35)] backdrop-blur-xl"
-            : "border-white/[0.07] bg-navy-950 py-3 backdrop-blur-md",
+            ? "border-white/12 bg-navy-950/95 py-2.5 shadow-[0_8px_32px_rgba(7,17,31,0.35)] backdrop-blur-xl"
+            : "border-white/[0.07] bg-navy-950/90 py-3 backdrop-blur-md",
         )}
       >
         <Container wide className="flex items-center justify-between gap-4">

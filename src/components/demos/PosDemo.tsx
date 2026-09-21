@@ -17,12 +17,12 @@ const catalog = [
 const STEP_COUNT = 9;
 
 export function PosDemo() {
-  const { ref, step, reduce, setStep, restart } = useDemoCycle(STEP_COUNT, 2000);
+  const { ref, step, reduce, setStep, restart, controlled } = useDemoCycle(STEP_COUNT, 2000);
 
   const selected = step >= 0;
   const inCart = step >= 1;
   const qty = step >= 2 ? 2 : inCart ? 1 : 0;
-  const showTotal = step >= 3 || (reduce && inCart);
+  const showTotal = step >= 3 || ((reduce || controlled) && inCart);
   const paying = step === 4 || step === 5;
   const paid = step >= 5;
   const receipt = step >= 6;
@@ -177,7 +177,7 @@ export function PosDemo() {
                     </motion.span>
                   </div>
                   {!paid ? (
-                    <button type="button" onClick={() => setStep(reduce ? 7 : 4)} className="mt-2 w-full rounded-lg bg-brand px-2.5 py-2 text-xs font-bold text-navy-950 transition hover:bg-brand-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-light">
+                    <button type="button" onClick={() => setStep(reduce || controlled ? 7 : 4)} className="mt-2 w-full rounded-lg bg-brand px-2.5 py-2 text-xs font-bold text-navy-950 transition hover:bg-brand-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-light">
                       Checkout demo
                     </button>
                   ) : null}

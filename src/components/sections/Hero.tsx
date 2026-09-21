@@ -7,8 +7,8 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import {
-  HeroCommandCenter,
-  HeroMobileVisual,
+  HeroProductScene,
+  HeroProductSceneMobile,
 } from "@/components/sections/HeroCommandCenter";
 import { track } from "@/lib/analytics";
 import { siteConfig } from "@/lib/site";
@@ -30,9 +30,9 @@ export function Hero() {
 
       <Container
         wide
-        className="relative grid items-center gap-6 pb-8 pt-6 sm:gap-7 sm:pb-10 sm:pt-7 lg:grid-cols-[minmax(0,0.45fr)_minmax(0,0.55fr)] lg:gap-6 lg:pb-16 lg:pt-14 xl:gap-8 xl:pb-12"
+        className="relative grid items-center gap-6 pb-8 pt-6 sm:gap-7 sm:pb-10 sm:pt-7 lg:grid-cols-[minmax(0,0.44fr)_minmax(0,0.56fr)] lg:gap-6 lg:pb-16 lg:pt-14 xl:gap-8 xl:pb-12"
       >
-        <div className="relative z-10 max-w-md lg:max-w-[26rem] xl:max-w-lg">
+        <div className="relative z-10 max-w-md lg:max-w-[28rem] xl:max-w-xl">
           <Badge tone="soft" className="mb-3">
             Powered by{" "}
             <Link
@@ -81,22 +81,27 @@ export function Hero() {
             </Button>
           </div>
 
-          <ul className="mt-5 flex flex-wrap gap-x-3 gap-y-1.5 text-[10px] font-medium uppercase tracking-[0.08em] text-white/40 sm:text-[11px]">
-            <li className="border-r border-white/15 pr-3 last:border-0">
-              POS · Available
-            </li>
-            <li className="border-r border-white/15 pr-3">EMS · Available</li>
-            <li className="border-r border-white/15 pr-3">FMS · Available</li>
-            <li className="border-r border-white/15 pr-3">
-              E-Commerce · Available
-            </li>
-            <li className="text-amber">CRM · Coming Soon</li>
-          </ul>
+          <div className="cine-status-treatment mt-5" role="region" aria-label="Product availability status">
+            <div className="cine-status-group">
+              <span className="cine-status-badge is-available">
+                <span className="cine-status-dot is-available" />
+                AVAILABLE
+              </span>
+              <span className="cine-status-products">POS · EMS · FMS · E-COMMERCE</span>
+            </div>
+            <div className="cine-status-group">
+              <span className="cine-status-badge is-soon">
+                <span className="cine-status-dot is-soon" />
+                COMING SOON
+              </span>
+              <span className="cine-status-products is-muted">CRM</span>
+            </div>
+          </div>
         </div>
 
         <div className="relative z-0 min-w-0 lg:-mr-2 xl:-mr-4">
-          <HeroMobileVisual />
-          <HeroCommandCenter className="mx-auto w-full" />
+          <HeroProductSceneMobile className="md:hidden" />
+          <HeroProductScene className="hidden md:block mx-auto w-full" />
         </div>
       </Container>
 

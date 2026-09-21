@@ -1,29 +1,13 @@
+import "./cinematic.css";
 import dynamic from "next/dynamic";
-import { Hero } from "@/components/sections/Hero";
+import { EcosystemReveal } from "@/components/cinematic/EcosystemReveal";
+import { ProductChapters } from "@/components/cinematic/ProductChapters";
+import { CinematicOpening } from "@/components/cinematic/CinematicOpening";
 import { TrustStrip } from "@/components/sections/TrustStrip";
 import { WhyKaionex } from "@/components/sections/WhyKaionex";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 import { faqs } from "@/content/faq";
 
-const ProductEcosystem = dynamic(
-  () =>
-    import("@/components/sections/ProductEcosystem").then(
-      (m) => m.ProductEcosystem,
-    ),
-  { ssr: true },
-);
-const ProductShowcase = dynamic(
-  () =>
-    import("@/components/sections/ProductShowcase").then(
-      (m) => m.ProductShowcase,
-    ),
-  { ssr: true },
-);
-const WorkflowStory = dynamic(
-  () =>
-    import("@/components/sections/WorkflowStory").then((m) => m.WorkflowStory),
-  { ssr: true },
-);
 const IndustrySelector = dynamic(
   () =>
     import("@/components/sections/IndustrySelector").then(
@@ -63,22 +47,21 @@ export default function HomePage() {
   };
 
   return (
-    <div className="kx-home">
+    <div className="kx-home kx-cinematic">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <Hero />
+      <CinematicOpening />
+      <ProductChapters />
+      <EcosystemReveal />
       <TrustStrip />
-      <ProductEcosystem />
-      <ProductShowcase />
-      <WorkflowStory />
+      <WhyKaionex />
       <IndustrySelector />
       <DashboardPreview />
-      <WhyKaionex />
       <PricingSection compact />
       <FAQSection />
-      <FinalCTA />
+      <FinalCTA cinematic />
     </div>
   );
 }

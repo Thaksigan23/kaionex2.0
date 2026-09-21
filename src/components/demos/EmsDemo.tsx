@@ -92,7 +92,7 @@ export function EmsDemo() {
                     Restock aisle B · Task #482
                   </p>
                   <p className="mt-0.5 text-[11px] text-slate-500">
-                    Assigned to A. Ranasinghe
+                    Assigned to Store Associate
                   </p>
                 </div>
                 <motion.span
@@ -119,7 +119,7 @@ export function EmsDemo() {
                 />
               </div>
               <div className="mt-3 flex items-center justify-between rounded-lg bg-paper px-2.5 py-2 text-[11px]">
-                <span className="text-navy-900">A. Ranasinghe</span>
+                <span className="text-navy-900">Store Associate</span>
                 <motion.span
                   key={employeeStatus}
                   initial={reduce ? false : { opacity: 0 }}

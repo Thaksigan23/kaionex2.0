@@ -44,7 +44,7 @@ const items = [
 
 export function TrustStrip() {
   return (
-    <section className="relative z-[1] -mt-px border-b border-black/5 bg-white py-5 shadow-[0_-12px_40px_rgba(7,17,31,0.12)] sm:py-7">
+    <section className="cine-trust relative z-[1] -mt-px border-b border-black/5 bg-white py-5 shadow-[0_-12px_40px_rgba(7,17,31,0.12)] sm:py-7">
       <Container wide>
         <div className="relative">
             <div

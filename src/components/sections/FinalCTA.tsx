@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 
-export function FinalCTA() {
+export function FinalCTA({ cinematic = false }: { cinematic?: boolean }) {
   return (
-    <section className="relative overflow-hidden bg-navy-950 py-14 text-white sm:py-16 lg:py-20">
+    <section className={(cinematic ? "cine-final " : "") + "relative overflow-hidden bg-navy-950 py-14 text-white sm:py-16 lg:py-20"}>
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-1/2 size-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/10 blur-3xl" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0,rgba(7,17,31,0.85)_70%)]" />
@@ -18,7 +18,7 @@ export function FinalCTA() {
           Next step
         </p>
         <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-balance sm:text-4xl lg:text-5xl">
-          Ready to run your business differently?
+          {cinematic ? <>Ready to connect<br />your operations?</> : "Ready to run your business differently?"}
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-base text-white/65 sm:text-lg">
           Bring your sales, people, finances, and commerce together with
@@ -32,6 +32,7 @@ export function FinalCTA() {
             Talk to Our Team
           </Button>
         </div>
+        {cinematic && <div className="cine-final-network" aria-hidden><span>POS</span><span>FMS</span><strong>KAIONEX CORE</strong><span>E-Commerce</span><span>EMS</span></div>}
       </Container>
     </section>
   );

@@ -73,7 +73,7 @@ const desktopNodes: Array<{ id: ProductId; x: number; y: number }> = [
 
 const corePosition = { x: 50, y: 51 };
 
-export function ProductEcosystem() {
+export function ProductEcosystem({ cinematic = false, revealCount = 4 }: { cinematic?: boolean; revealCount?: number } = {}) {
   const [selectedId, setSelectedId] = useState<ProductId>("pos");
   const [scenarioId, setScenarioId] = useState<DemoScenario["id"]>("retail-sale");
   const [stepIndex, setStepIndex] = useState(0);
@@ -89,13 +89,13 @@ export function ProductEcosystem() {
   const activeDetail = detailByProduct[displayedId];
 
   useEffect(() => {
-    if (!inView || autoStartedRef.current || reduce) return;
+    if (cinematic || !inView || autoStartedRef.current || reduce) return;
     const timer = window.setTimeout(() => {
       autoStartedRef.current = true;
       setPlaying(true);
     }, 0);
     return () => window.clearTimeout(timer);
-  }, [inView, reduce]);
+  }, [inView, reduce, cinematic]);
 
   useEffect(() => {
     if (!playing || reduce) return;
@@ -129,19 +129,19 @@ export function ProductEcosystem() {
   };
   const activeIds = playing
     ? [activeStep.source, ...activeStep.affected]
-    : [displayedId];
+    : cinematic ? (["pos", "fms", "ecommerce", "ems"] as ProductId[]).slice(0, revealCount) : [displayedId];
 
   return (
-    <section ref={sectionRef} className="bg-paper py-12 sm:py-14 lg:py-16">
+    <section ref={sectionRef} className={cn("bg-paper py-12 sm:py-14 lg:py-16", cinematic && "cine-ecosystem-map")}>
       <Container wide>
-        <Reveal>
+        {!cinematic && <Reveal>
           <SectionHeading
             eyebrow="Ecosystem"
             title="Everything your business needs. Connected."
             description="See how POS, EMS, FMS, and E-Commerce connect through one KAIONEX core — and how CRM will extend the ecosystem."
             className="mb-8 lg:mb-10"
           />
-        </Reveal>
+        </Reveal>}
 
         <EcosystemScenarioControls
           scenario={scenario}

@@ -10,11 +10,14 @@ import { cn } from "@/lib/utils";
 const stages = ["Store", "New order", "Processing", "Inventory", "Finance"] as const;
 const STEP_COUNT = 6;
 
-export function EcommerceDemo() {
+export function EcommerceDemo({ storyMode = false }: { storyMode?: boolean } = {}) {
   const { ref, step, reduce, setStep, restart } = useDemoCycle(STEP_COUNT, 2200);
 
   const activeStage = Math.min(step, stages.length - 1);
-  const stock = step >= 3 ? 26 : 27;
+  const stock = storyMode ? (step >= 3 ? 39 : 40) : (step >= 3 ? 26 : 27);
+  const itemName = storyMode ? "Organic Coffee Beans" : "Ceramic Mug";
+  const itemVariant = storyMode ? "250g · Medium Roast" : "Ceramic Mug · Sage";
+  const revenueLabel = storyMode ? "+$20.35 revenue" : "+$12.00 revenue";
   const orderStatus =
     step <= 1 ? "New" : step === 2 ? "Processing" : step === 3 ? "Inventory reserved" : step === 4 ? "Ready" : "Fulfilled";
   const revenueBump = step >= 4;
@@ -29,8 +32,8 @@ export function EcommerceDemo() {
     <div ref={ref}>
       <DemoChrome
         title="E-Commerce · Online store"
-        subtitle="Sample order flow · fictional data"
-        footer="E-Commerce ↔ POS inventory · E-Commerce → FMS revenue · Demo UI"
+        subtitle={storyMode ? "Shared warehouse inventory · Fictional demo" : "Sample order flow · fictional data"}
+        footer={storyMode ? "Shared warehouse pool (POS & Web) · FMS revenue bridge" : "E-Commerce ↔ POS inventory · E-Commerce → FMS revenue · Demo UI"}
       >
         <div className="p-3">
           <div className="grid grid-cols-5 gap-1">
@@ -60,10 +63,10 @@ export function EcommerceDemo() {
               className="rounded-xl border border-black/5 p-3"
             >
               <p className="text-[10px] uppercase tracking-wide text-slate-400">
-                Order
+                Online Order
               </p>
               <p className="mt-1 text-sm font-semibold text-navy-900">
-                #1048 · Ceramic Mug
+                #1048 · {itemName}
               </p>
               <p className="mt-1 text-xs text-slate-500">
                 Status:{" "}
@@ -79,21 +82,50 @@ export function EcommerceDemo() {
             </motion.div>
 
             <div className="rounded-xl border border-black/5 p-3">
-              <p className="text-[10px] uppercase tracking-wide text-slate-400">
-                Inventory · POS sync
-              </p>
+              <div className="flex items-center justify-between">
+                <p className="text-[10px] uppercase tracking-wide text-slate-400">
+                  {storyMode ? "Shared Warehouse Stock" : "Inventory · POS sync"}
+                </p>
+                {storyMode && (
+                  <span className="text-[9px] font-mono text-brand font-medium">
+                    POS ↔ Web
+                  </span>
+                )}
+              </div>
               <p className="mt-1 text-sm font-semibold text-navy-900">
-                Ceramic Mug · Sage
+                {itemVariant}
               </p>
-              <motion.p
-                key={stock}
-                initial={reduce ? false : { scale: 1.06 }}
-                animate={{ scale: 1 }}
-                className="mt-1 text-xs text-slate-500"
-              >
-                Qty on hand:{" "}
-                <span className="font-semibold text-navy-900">{stock}</span>
-              </motion.p>
+              {storyMode ? (
+                <div className="mt-1 space-y-0.5 text-xs text-slate-500">
+                  <p>
+                    Central on-hand:{" "}
+                    <span className="font-semibold text-navy-900">
+                      {step >= 5 ? "39 units (fulfilled)" : "40 units"}
+                    </span>
+                  </p>
+                  <p className="text-[11px]">
+                    Available to sell:{" "}
+                    <span className="font-semibold text-brand">
+                      {step >= 3 ? "39 units" : "40 units"}
+                    </span>
+                    {step >= 3 && step < 5 && (
+                      <span className="ml-1 text-[10px] text-amber-600 font-medium">
+                        (1 reserved)
+                      </span>
+                    )}
+                  </p>
+                </div>
+              ) : (
+                <motion.p
+                  key={stock}
+                  initial={reduce ? false : { scale: 1.06 }}
+                  animate={{ scale: 1 }}
+                  className="mt-1 text-xs text-slate-500"
+                >
+                  Qty on hand:{" "}
+                  <span className="font-semibold text-navy-900">{stock}</span>
+                </motion.p>
+              )}
             </div>
           </div>
 
@@ -106,7 +138,7 @@ export function EcommerceDemo() {
                 className="mt-2 flex items-center justify-between rounded-xl bg-brand/10 px-3 py-2 text-sm"
               >
                 <span className="text-navy-900">Posted to FMS</span>
-                <span className="font-semibold text-brand">+$12.00 revenue</span>
+                <span className="font-semibold text-brand">{revenueLabel}</span>
               </motion.div>
             ) : null}
           </AnimatePresence>
