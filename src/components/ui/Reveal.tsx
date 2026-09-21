@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useHydratedReducedMotion as useReducedMotion } from "@/components/ui/useHydratedReducedMotion";
 import { cn } from "@/lib/utils";
 
 type RevealProps = {

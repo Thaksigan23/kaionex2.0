@@ -22,13 +22,14 @@ export function DemoChrome({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-xl border shadow-kx-md",
+        "kx-app-window overflow-hidden rounded-xl border shadow-kx-md",
         dark
           ? "border-white/12 bg-navy-900 text-white shadow-[0_18px_50px_rgba(7,17,31,0.45)]"
           : "border-black/[0.07] bg-white text-navy-900",
         className,
       )}
-      aria-hidden
+      role="group"
+      aria-label={title}
     >
       <div
         className={cn(

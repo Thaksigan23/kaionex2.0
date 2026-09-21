@@ -19,7 +19,7 @@ export function EcosystemScenarioControls({
   onReplay,
 }: EcosystemScenarioControlsProps) {
   return (
-    <div className="mb-4 rounded-xl border border-black/[0.08] bg-white p-3 shadow-kx-sm sm:mb-5 sm:flex sm:items-center sm:justify-between sm:gap-4">
+    <div className="mb-4 rounded-xl border border-black/[0.08] bg-white p-3 shadow-kx-sm sm:mb-5 sm:grid sm:grid-cols-[1fr_auto] sm:items-center sm:gap-4">
       <div>
         <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-brand">Watch the flow</p>
         <p className="mt-0.5 text-xs text-slate-500">Illustrative product activity · no live customer data</p>

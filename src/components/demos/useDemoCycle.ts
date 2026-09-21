@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useEffect, useState, useRef, type SetStateAction } from "react";
+import { useHydratedReducedMotion as useReducedMotion } from "@/components/ui/useHydratedReducedMotion";
 
 /**
  * Sequenced demo steps — pauses when off-screen; freezes on reduced motion.
@@ -12,6 +12,12 @@ export function useDemoCycle(stepCount: number, intervalMs = 2400) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [step, setStep] = useState(0);
+  const [manual, setManual] = useState(false);
+  const displayedStep = reduce && !manual ? Math.max(0, stepCount - 2) : step;
+  const selectStep = (next: SetStateAction<number>) => {
+    setManual(true);
+    setStep(typeof next === "function" ? next(displayedStep) : next);
+  };
 
   useEffect(() => {
     const el = ref.current;
@@ -36,9 +42,9 @@ export function useDemoCycle(stepCount: number, intervalMs = 2400) {
 
   return {
     ref,
-    step: reduce ? Math.min(stepCount - 1, Math.max(0, stepCount - 2)) : step,
-    setStep,
-    restart: () => setStep(0),
+    step: displayedStep,
+    setStep: selectStep,
+    restart: () => selectStep(0),
     reduce: Boolean(reduce),
     visible,
   };

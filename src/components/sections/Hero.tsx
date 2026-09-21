@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useHydratedReducedMotion as useReducedMotion } from "@/components/ui/useHydratedReducedMotion";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
@@ -21,7 +22,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.028)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.028)_1px,transparent_1px)] bg-size-[48px_48px] opacity-35 [mask-image:radial-gradient(ellipse_at_70%_40%,black_15%,transparent_70%)]" />
         <motion.div
           className="absolute -right-20 top-8 hidden size-[24rem] rounded-full bg-brand/10 blur-3xl sm:block"
-          animate={reduce ? undefined : { x: [0, 16, 0], y: [0, -10, 0] }}
+          animate={reduce ? undefined : { opacity: 1 }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         />
         <div className="absolute -left-20 bottom-4 size-[18rem] rounded-full bg-teal/12 blur-3xl" />
@@ -29,7 +30,7 @@ export function Hero() {
 
       <Container
         wide
-        className="relative grid items-center gap-6 pb-8 pt-6 sm:gap-7 sm:pb-10 sm:pt-7 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)] lg:gap-6 lg:pb-10 lg:pt-8 xl:gap-8 xl:pb-12"
+        className="relative grid items-center gap-6 pb-8 pt-6 sm:gap-7 sm:pb-10 sm:pt-7 lg:grid-cols-[minmax(0,0.45fr)_minmax(0,0.55fr)] lg:gap-6 lg:pb-16 lg:pt-14 xl:gap-8 xl:pb-12"
       >
         <div className="relative z-10 max-w-md lg:max-w-[26rem] xl:max-w-lg">
           <Badge tone="soft" className="mb-3">
@@ -44,7 +45,7 @@ export function Hero() {
             </Link>
           </Badge>
 
-          <h1 className="font-display text-[1.75rem] font-semibold leading-[1.12] tracking-tight text-balance sm:text-[2.15rem] lg:text-[2.35rem] xl:text-[2.55rem]">
+          <h1 className="font-display text-[1.75rem] font-semibold leading-[1.12] tracking-tight text-balance sm:text-[2.15rem] lg:text-[2.8rem] xl:text-[3.25rem]">
             Run Your Entire Business
             <span className="mt-1 block text-brand-soft">with KAIONEX</span>
           </h1>
@@ -99,7 +100,7 @@ export function Hero() {
         </div>
       </Container>
 
-      {/* Soft handoff into the light trust strip */}
+      {/* Continuous navy canvas */}
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-b from-transparent to-black/20"
         aria-hidden

@@ -1,7 +1,8 @@
 "use client";
 
 import { Check } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useHydratedReducedMotion as useReducedMotion } from "@/components/ui/useHydratedReducedMotion";
 import { products, type ProductId } from "@/content/products";
 import { PosDemo } from "@/components/demos/PosDemo";
 import { EmsDemo } from "@/components/demos/EmsDemo";
@@ -76,9 +77,9 @@ export function ProductShowcase() {
             const reverse = index % 2 === 1;
             const frame = frames[product.id];
             return (
-              <div key={product.id}
+              <div key={product.id} data-product={product.id}
                   className={cn(
-                    "grid items-center gap-7 lg:grid-cols-2 lg:gap-12",
+                    "kx-product-row grid items-center gap-7 lg:gap-12",
                     reverse && "lg:[&>*:first-child]:order-2",
                   )}
                 >
@@ -148,7 +149,7 @@ export function ProductShowcase() {
                     viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: reduce ? 0 : 0.5, delay: reduce ? 0 : 0.06, ease: "easeOut" }}
                     className={cn(
-                      "relative rounded-2xl border p-2 sm:p-2.5",
+                      "kx-product-stage relative rounded-2xl border p-2 sm:p-2.5",
                       frame.ring,
                     )}
                   >

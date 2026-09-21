@@ -13,7 +13,7 @@ export function FinalCTA() {
           <circle cx="50%" cy="50%" r="240" fill="none" stroke="#ffffff" strokeOpacity="0.08" />
         </svg>
       </div>
-      <Container className="relative text-center">
+      <Container className="kx-final-panel relative text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-soft">
           Next step
         </p>

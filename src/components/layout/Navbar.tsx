@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useHydratedReducedMotion as useReducedMotion } from "@/components/ui/useHydratedReducedMotion";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { products } from "@/content/products";
 import { industries } from "@/content/industries";

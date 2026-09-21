@@ -63,7 +63,7 @@ export default function HomePage() {
   };
 
   return (
-    <>
+    <div className="kx-home">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
@@ -79,6 +79,6 @@ export default function HomePage() {
       <PricingSection compact />
       <FAQSection />
       <FinalCTA />
-    </>
+    </div>
   );
 }

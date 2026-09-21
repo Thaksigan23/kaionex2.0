@@ -1,3 +1,5 @@
+import { ProductSnippet } from "@/components/demos/ProductVisuals";
+import type { ProductId } from "@/content/products";
 import { whyKaionex } from "@/content/faq";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -100,7 +102,7 @@ export function WhyKaionex() {
                   <div className="grid grid-cols-2 gap-1.5">
                     {capabilityMeta[anchor.title].detail.map((product) => (
                       <span key={product} className="rounded-md border border-brand/15 bg-white/70 px-2 py-1.5 text-center">
-                        {product}
+                        {product}<ProductSnippet product={({ POS: "pos", EMS: "ems", FMS: "fms", "E-Commerce": "ecommerce" } as Record<string, ProductId>)[product]} compact />
                       </span>
                     ))}
                   </div>

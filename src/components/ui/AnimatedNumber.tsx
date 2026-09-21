@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useInView, useReducedMotion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useHydratedReducedMotion as useReducedMotion } from "@/components/ui/useHydratedReducedMotion";
 
 type AnimatedNumberProps = {
   value: number;

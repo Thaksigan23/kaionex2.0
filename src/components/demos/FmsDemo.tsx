@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { DemoChrome } from "@/components/demos/DemoChrome";
 import { useDemoCycle } from "@/components/demos/useDemoCycle";
 import { useScenarioDemoStep } from "@/components/demos/useScenarioDemoStep";
+import { FinanceBreakdown } from "@/components/demos/ProductVisuals";
 import { cn } from "@/lib/utils";
 
 const bars = [36, 48, 42, 60, 54, 72, 68];
@@ -70,7 +71,8 @@ export function FmsDemo() {
             </div>
           </div>
 
-          <div className="mt-3 space-y-2">
+          <FinanceBreakdown />
+          <div className="mt-3 min-h-36 space-y-2">
             <AnimatePresence mode="popLayout">
               {showTxn ? (
                 <motion.div

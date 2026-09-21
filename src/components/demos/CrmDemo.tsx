@@ -1,6 +1,5 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import { Badge } from "@/components/ui/Badge";
 import { DemoChrome } from "@/components/demos/DemoChrome";
 
@@ -8,13 +7,11 @@ import { DemoChrome } from "@/components/demos/DemoChrome";
  * CRM is Coming Soon — preview only, not an operational product UI.
  */
 export function CrmDemo() {
-  const reduce = useReducedMotion();
-
   return (
     <div aria-hidden>
       <DemoChrome
         title="KAIONEX CRM"
-        subtitle="Product preview · under development"
+        subtitle="Concept Preview · under development"
         badge={<Badge tone="warning">Coming Soon</Badge>}
         className="relative border-dashed border-amber/35 bg-amber/[0.03]"
         footer="Conceptual preview · CRM is not released yet"
@@ -64,31 +61,17 @@ export function CrmDemo() {
             viewBox="0 0 320 200"
             fill="none"
           >
-            <motion.path
+            <path
               d="M40 170 C 110 120, 210 120, 280 40"
               stroke="rgba(217,119,6,0.35)"
               strokeWidth="1.2"
               strokeDasharray="4 6"
-              initial={false}
-              animate={
-                reduce
-                  ? { strokeDashoffset: 0 }
-                  : { strokeDashoffset: [18, 0] }
-              }
-              transition={{ duration: 3.2, repeat: Infinity, ease: "linear" }}
             />
-            <motion.path
+            <path
               d="M60 40 C 130 80, 190 140, 260 170"
               stroke="rgba(18,201,140,0.25)"
               strokeWidth="1"
               strokeDasharray="3 7"
-              initial={false}
-              animate={
-                reduce
-                  ? { strokeDashoffset: 0 }
-                  : { strokeDashoffset: [0, 20] }
-              }
-              transition={{ duration: 3.8, repeat: Infinity, ease: "linear" }}
             />
           </svg>
 

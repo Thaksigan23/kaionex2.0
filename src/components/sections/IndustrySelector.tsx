@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useHydratedReducedMotion as useReducedMotion } from "@/components/ui/useHydratedReducedMotion";
 import { industries } from "@/content/industries";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
+import { ProductSnippet } from "@/components/demos/ProductVisuals";
 import { cn } from "@/lib/utils";
 
 export function IndustrySelector() {
@@ -32,6 +34,7 @@ export function IndustrySelector() {
             <button
               key={industry.id}
               type="button"
+              aria-pressed={activeId === industry.id}
               onClick={() => setActiveId(industry.id)}
               className={cn(
                 "shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition",
@@ -83,6 +86,7 @@ export function IndustrySelector() {
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-soft">
                 How KAIONEX helps
               </p>
+              <div className="mt-4"><ProductSnippet product={active.products.some(p => p.includes("POS")) ? "pos" : active.products.some(p => p.includes("EMS")) ? "ems" : "ecommerce"} /></div>
               <ul className="mt-4 space-y-3">
                 {active.solutions.slice(0, 4).map((item) => (
                   <li

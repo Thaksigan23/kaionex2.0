@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { DemoChrome } from "@/components/demos/DemoChrome";
 import { useDemoCycle } from "@/components/demos/useDemoCycle";
 import { useScenarioDemoStep } from "@/components/demos/useScenarioDemoStep";
+import { OrderManifest } from "@/components/demos/ProductVisuals";
 import { cn } from "@/lib/utils";
 
 const stages = ["Store", "New order", "Processing", "Inventory", "Finance"] as const;
@@ -15,7 +16,7 @@ export function EcommerceDemo() {
   const activeStage = Math.min(step, stages.length - 1);
   const stock = step >= 3 ? 26 : 27;
   const orderStatus =
-    step <= 1 ? "New" : step === 2 ? "Processing" : step >= 3 ? "Synced" : "New";
+    step <= 1 ? "New" : step === 2 ? "Processing" : step === 3 ? "Inventory reserved" : step === 4 ? "Ready" : "Fulfilled";
   const revenueBump = step >= 4;
 
   useScenarioDemoStep("ecommerce", (scenarioStep) => {
@@ -69,7 +70,7 @@ export function EcommerceDemo() {
                 <span
                   className={cn(
                     "font-semibold",
-                    orderStatus === "Synced" ? "text-brand" : "text-amber",
+                    step >= 3 ? "text-brand" : "text-amber",
                   )}
                 >
                   {orderStatus}
@@ -96,6 +97,7 @@ export function EcommerceDemo() {
             </div>
           </div>
 
+          <OrderManifest />
           <AnimatePresence>
             {revenueBump ? (
               <motion.div

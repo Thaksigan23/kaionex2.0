@@ -1,15 +1,14 @@
 "use client";
 
 import { useRef } from "react";
-import {
-  motion,
+import { motion,
   useScroll,
   useTransform,
-  useReducedMotion,
-  type MotionValue,
-} from "framer-motion";
+  type MotionValue } from "framer-motion";
+import { useHydratedReducedMotion as useReducedMotion } from "@/components/ui/useHydratedReducedMotion";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ConnectedWorkflow } from "@/components/demos/ProductVisuals";
 import { cn } from "@/lib/utils";
 
 const steps = [
@@ -182,6 +181,7 @@ export function WorkflowStory() {
           className="mb-10 max-w-3xl lg:mb-12"
         />
 
+        <ConnectedWorkflow />
         <div className="relative grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           {/* Desktop flow legend */}
           <div className="hidden rounded-xl border border-white/10 bg-white/[0.03] p-5 lg:block">

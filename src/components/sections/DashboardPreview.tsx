@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useHydratedReducedMotion as useReducedMotion } from "@/components/ui/useHydratedReducedMotion";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
+import { WorkspaceActivity } from "@/components/demos/ProductVisuals";
 import { cn } from "@/lib/utils";
 
 const tabs = [
@@ -98,6 +100,16 @@ export function DashboardPreview() {
               key={tab.id}
               type="button"
               role="tab"
+              id={"dashboard-tab-" + tab.id}
+              aria-controls={"dashboard-panel-" + tab.id}
+              tabIndex={active === tab.id ? 0 : -1}
+              onKeyDown={(event) => {
+                const index = tabs.findIndex(item => item.id === active);
+                const next = event.key === "ArrowRight" ? (index + 1) % tabs.length : event.key === "ArrowLeft" ? (index + tabs.length - 1) % tabs.length : event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : -1;
+                if (next < 0) return;
+                event.preventDefault(); setActive(tabs[next].id);
+                document.getElementById("dashboard-tab-" + tabs[next].id)?.focus();
+              }}
               aria-selected={active === tab.id}
               className={cn(
                 "shrink-0 rounded-full px-4 py-2 text-sm font-medium transition",
@@ -116,6 +128,8 @@ export function DashboardPreview() {
           <motion.div
             key={current.id}
             role="tabpanel"
+            id={"dashboard-panel-" + current.id}
+            aria-labelledby={"dashboard-tab-" + current.id}
             initial={reduce ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={reduce ? undefined : { opacity: 0, y: -8 }}
@@ -147,6 +161,7 @@ export function DashboardPreview() {
                 </div>
               ))}
             </div>
+            <WorkspaceActivity view={current.id} />
           </motion.div>
         </AnimatePresence>
       </Container>

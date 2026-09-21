@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/Badge";
 import { DemoChrome } from "@/components/demos/DemoChrome";
 import { useDemoCycle } from "@/components/demos/useDemoCycle";
 import { useScenarioDemoStep } from "@/components/demos/useScenarioDemoStep";
+import { WorkforceStrip } from "@/components/demos/ProductVisuals";
 import { cn } from "@/lib/utils";
 
 const nav = ["Dashboard", "Employees", "Tasks", "Monitoring", "Chat"] as const;
@@ -53,7 +54,8 @@ export function EmsDemo() {
             ))}
           </aside>
 
-          <div className="flex-1 p-3">
+          <div className="min-w-0 flex-1 p-3">
+            <WorkforceStrip />
             <div className="mb-2 flex gap-1.5 overflow-x-auto sm:hidden">
               {nav.map((item) => (
                 <span

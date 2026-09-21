@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useInView } from "framer-motion";
+import { useHydratedReducedMotion as useReducedMotion } from "@/components/ui/useHydratedReducedMotion";
 import {
   CircleDollarSign,
   MonitorSmartphone,
@@ -17,6 +18,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { EcosystemScenarioControls } from "@/components/sections/EcosystemScenarioControls";
 import { publishDemoScenarioStep } from "@/lib/demo-events";
+import { ProductSnippet } from "@/components/demos/ProductVisuals";
 import { cn } from "@/lib/utils";
 
 type Detail = {
@@ -62,7 +64,7 @@ const detailByProduct: Record<ProductId, Detail> = {
 };
 
 const desktopNodes: Array<{ id: ProductId; x: number; y: number }> = [
-  { id: "ecommerce", x: 50, y: 15 },
+  { id: "ecommerce", x: 50, y: 26 },
   { id: "ems", x: 15, y: 51 },
   { id: "pos", x: 85, y: 51 },
   { id: "fms", x: 39, y: 84 },
@@ -178,7 +180,7 @@ export function ProductEcosystem() {
 
 function EcosystemMap({ selectedId, onSelect, reduce, activeIds, eventKey }: { selectedId: ProductId; onSelect: (id: ProductId) => void; reduce: boolean; activeIds: ProductId[]; eventKey?: string }) {
   return (
-    <div className="relative min-h-[31rem] overflow-hidden border-r border-black/[0.07] bg-[radial-gradient(circle_at_50%_50%,rgba(0,179,122,0.1),transparent_36%),radial-gradient(rgba(15,23,42,0.09)_0.7px,transparent_0.7px)] bg-[length:auto,18px_18px] p-7 xl:p-9">
+    <div className="relative min-h-[40rem] overflow-hidden border-r border-black/[0.07] bg-[radial-gradient(circle_at_50%_50%,rgba(0,179,122,0.1),transparent_36%),radial-gradient(rgba(15,23,42,0.09)_0.7px,transparent_0.7px)] bg-[length:auto,18px_18px] p-7 xl:p-9">
       <p className="relative z-10 text-[10px] font-bold uppercase tracking-[0.17em] text-slate-500">Select a product to inspect its operating context</p>
       <p className="relative z-10 mt-1 text-sm text-slate-500">Available products connect through the KAIONEX Core.</p>
 
@@ -194,7 +196,7 @@ function EcosystemMap({ selectedId, onSelect, reduce, activeIds, eventKey }: { s
                 y1={corePosition.y}
                 x2={node.x}
                 y2={node.y}
-                stroke={selected ? future ? "rgba(217,119,6,0.72)" : "rgba(0,179,122,0.74)" : future ? "rgba(217,119,6,0.22)" : "rgba(15,23,42,0.15)"}
+                stroke={selected ? future ? "rgba(217,119,6,0.72)" : "rgba(0,179,122,0.74)" : future ? "rgba(217,119,6,0.22)" : "rgba(150,174,198,0.24)"}
                 strokeWidth={selected ? 0.44 : 0.28}
                 strokeDasharray={future ? "1.25 1.5" : undefined}
                 initial={reduce ? false : { pathLength: 0, opacity: 0 }}
@@ -248,7 +250,7 @@ function ProductNode({ product, selected, active, onSelect, style, index, reduce
       aria-pressed={selected}
       onClick={() => onSelect(product.id)}
       className={cn(
-        "absolute z-20 flex w-[8.7rem] -translate-x-1/2 -translate-y-1/2 items-center gap-2.5 rounded-xl border p-3 text-left shadow-kx-sm transition-[border-color,background-color,box-shadow,transform] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2",
+        "kx-ecosystem-node absolute z-20 flex flex-wrap w-[9.5rem] -translate-x-1/2 -translate-y-1/2 items-center gap-2.5 rounded-xl border p-3 text-left shadow-kx-sm transition-[border-color,background-color,box-shadow,transform] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2",
         selected ? future ? "border-amber/45 bg-amber/[0.06] shadow-kx-md" : "border-brand/45 bg-white shadow-kx-md ring-1 ring-brand/15" : active ? "border-brand/30 bg-brand/[0.04] shadow-kx-sm" : future ? "border-dashed border-amber/30 bg-white/90 hover:border-amber/50" : "border-black/[0.1] bg-white/95 hover:border-brand/35 hover:shadow-kx-md",
       )}
       style={style}
@@ -262,6 +264,7 @@ function ProductNode({ product, selected, active, onSelect, style, index, reduce
         <span className="block truncate text-xs font-semibold text-navy-900">{product.shortName}</span>
         <span className={cn("mt-0.5 flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.09em]", future ? "text-amber" : "text-slate-500")}><span className={cn("size-1.5 rounded-full", future ? "bg-amber" : "bg-brand")} />{product.statusLabel}</span>
       </span>
+      <ProductSnippet product={product.id} compact />
     </motion.button>
   );
 }
@@ -279,7 +282,7 @@ function MobileProductButton({ product, selected, onSelect }: { product: (typeof
 function ProductInspector({ product, detail, reduce, activeStep, mobile = false }: { product: (typeof products)[number]; detail: Detail; reduce: boolean; activeStep?: DemoScenarioStep; mobile?: boolean }) {
   const Icon = detail.icon;
   const future = product.status !== "available";
-  const linkLabel = future ? "Learn about CRM" : `Explore ${product.name}`;
+  const linkLabel = future ? "Get Updates" : `Explore ${product.name}`;
   return (
     <aside className={cn("bg-white p-6 xl:p-8", mobile ? "p-5 sm:p-6" : "flex items-center")}>
       <div className="w-full">
@@ -298,6 +301,7 @@ function ProductInspector({ product, detail, reduce, activeStep, mobile = false 
               </div>
               <span className={cn("shrink-0 rounded-full px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.1em]", future ? "bg-amber/10 text-amber" : "bg-brand/10 text-brand")}>{product.statusLabel}</span>
             </div>
+            <div className="mt-5"><ProductSnippet product={product.id} /></div>
             <p className="mt-5 text-sm leading-relaxed text-slate-600">{detail.description}</p>
             <div className="mt-6 border-t border-black/[0.07] pt-5">
               <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500">{future ? "Planned ecosystem context" : "Connected operations"}</p>
@@ -305,7 +309,7 @@ function ProductInspector({ product, detail, reduce, activeStep, mobile = false 
                 {detail.contexts.map((context) => <li key={context} className="flex items-center gap-2.5 rounded-lg border border-black/[0.06] bg-paper/65 px-3 py-2 text-xs font-medium text-navy-700"><span className={cn("size-1.5 rounded-full", future ? "bg-amber" : "bg-brand")} />{context}</li>)}
               </ul>
             </div>
-            <Link href={product.href} className={cn("mt-6 inline-flex text-sm font-semibold transition-colors hover:underline", future ? "text-amber" : "text-brand")}>{linkLabel} →</Link>
+            <Link href={future ? product.ctaHref : product.href} className={cn("mt-6 inline-flex text-sm font-semibold transition-colors hover:underline", future ? "text-amber" : "text-brand")}>{linkLabel} →</Link>
           </motion.div>
         </AnimatePresence>
       </div>

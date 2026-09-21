@@ -1,7 +1,8 @@
 "use client";
 
 import { useId, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useHydratedReducedMotion as useReducedMotion } from "@/components/ui/useHydratedReducedMotion";
 import { ChevronDown } from "lucide-react";
 import { faqs } from "@/content/faq";
 import { Container } from "@/components/ui/Container";

@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { DemoChrome } from "@/components/demos/DemoChrome";
 import { useDemoCycle } from "@/components/demos/useDemoCycle";
 import { useScenarioDemoStep } from "@/components/demos/useScenarioDemoStep";
+import { Coffee, CupSoda, Gift } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const catalog = [
@@ -21,7 +22,7 @@ export function PosDemo() {
   const selected = step >= 0;
   const inCart = step >= 1;
   const qty = step >= 2 ? 2 : inCart ? 1 : 0;
-  const showTotal = step >= 3;
+  const showTotal = step >= 3 || (reduce && inCart);
   const paying = step === 4 || step === 5;
   const paid = step >= 5;
   const receipt = step >= 6;
@@ -85,7 +86,7 @@ export function PosDemo() {
                     transition={{ duration: 0.45 }}
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <span className="font-medium text-white">{item.name}</span>
+                      <span className="flex items-center gap-2 font-medium text-white"><span className="kx-catalog-icon">{i === 0 ? <Coffee size={21} /> : i === 1 ? <CupSoda size={21} /> : <Gift size={21} />}</span>{item.name}</span>
                       <span className="text-white/70">
                         ${item.price.toFixed(2)}
                       </span>
@@ -176,7 +177,7 @@ export function PosDemo() {
                     </motion.span>
                   </div>
                   {!paid ? (
-                    <button type="button" onClick={() => setStep(4)} className="mt-2 w-full rounded-lg bg-brand px-2.5 py-2 text-xs font-bold text-navy-950 transition hover:bg-brand-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-light">
+                    <button type="button" onClick={() => setStep(reduce ? 7 : 4)} className="mt-2 w-full rounded-lg bg-brand px-2.5 py-2 text-xs font-bold text-navy-950 transition hover:bg-brand-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-light">
                       Checkout demo
                     </button>
                   ) : null}
@@ -216,6 +217,7 @@ export function PosDemo() {
             <AnimatePresence>
               {receipt && !paying ? (
                 <motion.div
+                  key="receipt"
                   initial={reduce ? false : { opacity: 0, scale: 0.96 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="mt-2 rounded-xl bg-brand/15 px-3 py-2 text-center text-xs font-medium text-brand-soft"
@@ -224,7 +226,7 @@ export function PosDemo() {
                 </motion.div>
               ) : null}
               {receipt ? (
-                <button type="button" onClick={restart} className="mt-2 text-[10px] font-semibold text-brand-soft underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-light">
+                <button key="replay" type="button" onClick={restart} className="mt-2 text-[10px] font-semibold text-brand-soft underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-light">
                   Replay checkout demo
                 </button>
               ) : null}
