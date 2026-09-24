@@ -24,7 +24,7 @@ export function IndustrySelector() {
           <SectionHeading
             eyebrow="Industries"
             title="Built for the way your industry works."
-            description="Select an industry to see how KAIONEX connects the products and workflows that matter most."
+            description="Select an industry to see how KAIONEX products support the workflows that matter most."
             className="mb-8"
           />
         </Reveal>

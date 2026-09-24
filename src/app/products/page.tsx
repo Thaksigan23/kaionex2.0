@@ -19,8 +19,8 @@ export default function ProductsPage() {
     <>
       <PageHero
         eyebrow="Products"
-        title="One connected business ecosystem."
-        description="POS, EMS, FMS, and E-Commerce are available today. KAIONEX CRM is being developed as the future customer layer."
+        title="One KAIONEX. Multiple business products."
+        description="Explore purpose-built software for sales, people, finance, and commerce. CRM is under development for the portfolio."
       >
         <Button href="/book-demo" withArrow>
           Book a Demo
@@ -29,14 +29,15 @@ export default function ProductsPage() {
       <section className="bg-white py-14 lg:py-20">
         <Container wide>
           <div className="mb-8 rounded-2xl border border-navy-800 bg-navy-900 p-5 text-white sm:p-7">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-soft">How the products connect</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-soft">The KAIONEX Product Suite</p>
             <div className="mt-4 flex flex-wrap items-center gap-2 text-sm font-semibold sm:text-base">
-              <span>POS + E-Commerce</span><span className="text-brand-soft" aria-hidden>→</span>
-              <span>Orders &amp; inventory</span><span className="text-brand-soft" aria-hidden>→</span>
-              <span>FMS</span><span className="text-brand-soft" aria-hidden>·</span>
-              <span>EMS coordinates people and work</span>
+              <span>KAIONEX POS (Sales)</span><span className="text-brand-soft" aria-hidden>·</span>
+              <span>KAIONEX EMS (Workforce)</span><span className="text-brand-soft" aria-hidden>·</span>
+              <span>KAIONEX FMS (Finance)</span><span className="text-brand-soft" aria-hidden>·</span>
+              <span>E-Commerce (Storefront)</span><span className="text-brand-soft" aria-hidden>·</span>
+              <span className="text-amber">KAIONEX CRM (Coming Soon)</span>
             </div>
-            <p className="mt-3 text-xs text-white/60">CRM is under development and is not part of the current workflow.</p>
+            <p className="mt-3 text-xs text-white/60">Purpose-built software under one brand. Products operate independently with dedicated tools for each business area.</p>
           </div>
           <div className="divide-y divide-black/10 border-y border-black/10">
           {products.map((product, index) => (

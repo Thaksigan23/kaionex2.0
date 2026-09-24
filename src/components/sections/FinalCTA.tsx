@@ -18,11 +18,10 @@ export function FinalCTA({ cinematic = false }: { cinematic?: boolean }) {
           Next step
         </p>
         <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-balance sm:text-4xl lg:text-5xl">
-          {cinematic ? <>Ready to connect<br />your operations?</> : "Ready to run your business differently?"}
+          {cinematic ? <>Ready to power<br />your business?</> : "Ready to run your business differently?"}
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-base text-white/65 sm:text-lg">
-          Bring your sales, people, finances, and commerce together with
-          KAIONEX — one connected ecosystem powered by Techloom.ai.
+          Explore purpose-built business software for sales, people, finance, and commerce — built under the KAIONEX brand by Techloom.ai.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Button href="/book-demo" size="lg" withArrow>
@@ -32,7 +31,7 @@ export function FinalCTA({ cinematic = false }: { cinematic?: boolean }) {
             Talk to Our Team
           </Button>
         </div>
-        {cinematic && <div className="cine-final-network" aria-hidden><span>POS</span><span>FMS</span><strong>KAIONEX CORE</strong><span>E-Commerce</span><span>EMS</span></div>}
+        {cinematic && <div className="cine-final-network" aria-hidden><span>POS</span><span>FMS</span><strong>KAIONEX</strong><span>E-Commerce</span><span>EMS</span></div>}
       </Container>
     </section>
   );

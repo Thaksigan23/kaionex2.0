@@ -89,7 +89,7 @@ export function EmsDemo() {
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <p className="text-xs font-semibold text-navy-900">
-                    Restock aisle B · Task #482
+                    Store preparation · Task #482
                   </p>
                   <p className="mt-0.5 text-[11px] text-slate-500">
                     Assigned to Store Associate
@@ -145,7 +145,7 @@ export function EmsDemo() {
                   className="mt-2 rounded-xl border border-brand/20 bg-brand/5 px-3 py-2 text-[11px] text-navy-900"
                 >
                   <span className="font-semibold text-brand">Team chat · </span>
-                  Floor lead: “Aisle B restock confirmed.”
+                  Floor lead: “Store preparation confirmed.”
                 </motion.div>
               ) : null}
             </AnimatePresence>

@@ -27,29 +27,29 @@ export function EcosystemReveal() {
   return (
     <section ref={ref} className="cine-ecosystem-reveal">
       <div className="cine-payoff-heading">
-      <p className="cine-eyebrow">05 / THE WHOLE PICTURE</p>
-      <h2>
-        One ecosystem.
-        <br />
-        <em>Connected operations.</em>
-      </h2>
-      <p>
-        You’ve seen each product in motion.
-        <br />
-        Now see how POS, FMS, E-Commerce, and EMS operate as one connected foundation.
-      </p>
-    </div>
-    <motion.div style={cinematic ? { scale } : undefined} className="cine-payoff-map">
-      <ProductEcosystem cinematic revealCount={reduce ? 4 : count} />
-    </motion.div>
+        <p className="cine-eyebrow">05 / THE PRODUCT PORTFOLIO</p>
+        <h2>
+          One KAIONEX.
+          <br />
+          <em>Multiple business products.</em>
+        </h2>
+        <p>
+          From sales and workforce management to finance and online commerce,
+          <br />
+          KAIONEX offers purpose-built software for different parts of your business.
+        </p>
+      </div>
+      <motion.div style={cinematic ? { scale } : undefined} className="cine-payoff-map">
+        <ProductEcosystem cinematic revealCount={reduce ? 4 : count} />
+      </motion.div>
       <aside className="cine-future" data-product="crm">
-        <span className="cine-eyebrow">THE NEXT CONNECTION</span>
+        <span className="cine-eyebrow">THE NEXT ADDITION</span>
         <div>
           <h3>KAIONEX CRM</h3>
           <span className="cine-future-status">COMING SOON</span>
         </div>
         <p>
-          Customer relationships, joining the ecosystem.
+          Customer relationships, planned for the KAIONEX product family.
           <br />
           Concept preview · Under development.
         </p>

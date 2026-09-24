@@ -32,7 +32,7 @@ export const industries: Industry[] = [
     solutions: [
       "Barcode-driven inventory keeps stock accurate store to store.",
       "A single dashboard manages stock across stores and warehouses.",
-      "Online orders flow into the same system as in-store sales.",
+      "Dedicated software solutions for in-store sales and online storefronts.",
       "Fast POS billing with multiple payment options keeps queues moving.",
     ],
     outcomes: [
@@ -95,7 +95,7 @@ export const industries: Industry[] = [
     summary:
       "Manage projects, procurement, materials, contractors, equipment, and project finances from one platform.",
     description:
-      "KAIONEX helps construction teams bring project finances, procurement, materials, contractors, and workforce visibility into one connected operating layer.",
+      "KAIONEX helps construction teams bring project finances, procurement, materials, contractors, and workforce visibility into clear operational focus.",
     products: ["Finance", "Procurement", "Workforce", "Project operations"],
     challenges: [
       "Project costs are hard to track across sites and suppliers.",
@@ -163,7 +163,7 @@ export const industries: Industry[] = [
     href: "/industries/professional-services",
     eyebrow: "Delivery, billing & team operations",
     summary:
-      "Run client delivery, invoicing, expenses, and team coordination from one connected business platform.",
+      "Run client delivery, invoicing, expenses, and team coordination with purpose-built KAIONEX software.",
     description:
       "KAIONEX helps professional service businesses manage invoicing, expenses, cash flow, and team operations without juggling disconnected tools.",
     products: ["FMS", "EMS", "CRM — Coming Soon", "Analytics"],
@@ -198,21 +198,21 @@ export const industries: Industry[] = [
     href: "/industries/ecommerce",
     eyebrow: "Online orders connected to operations",
     summary:
-      "Keep online catalogs, orders, inventory, payments, and fulfillment connected to the same KAIONEX ecosystem as your stores.",
+      "Keep online catalogs, orders, payments, and fulfillment organized with dedicated KAIONEX software.",
     description:
-      "For online-first and omnichannel sellers, KAIONEX connects digital commerce with inventory, finance, and store operations so demand is not trapped in a separate stack.",
+      "For online-first and commercial sellers, KAIONEX provides purpose-built digital commerce software alongside store, workforce, and finance tools so your operations are clear and focused.",
     products: ["E-Commerce", "POS", "Inventory", "FMS"],
     challenges: [
-      "Online and store inventory diverge quickly.",
+      "Online and store operations diverge without focused tools.",
       "Order fulfillment handoffs are easy to miss.",
       "Finance reconciles channel sales late.",
-      "Customer and order data sit in separate tools.",
+      "Customer and order data sit in disparate formats.",
     ],
     solutions: [
-      "Synchronize online orders with shared inventory.",
-      "Connect commerce activity to POS and finance.",
-      "Track fulfillment against one operational picture.",
-      "Reduce channel fragmentation as you scale.",
+      "Track online orders and storefront inventory.",
+      "Deploy purpose-built software for counter sales and online commerce.",
+      "Track fulfillment against clear order queues.",
+      "Reduce channel fragmentation with the KAIONEX product brand.",
     ],
     outcomes: [
       "Fewer stock mismatches",

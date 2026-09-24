@@ -32,7 +32,7 @@ export const faqs = [
   {
     question: "Can KAIONEX support multi-location operations?",
     answer:
-      "Yes. Pro and Enterprise plans support multi-branch management so inventory, sales, and operations can be run across locations from one platform.",
+      "Yes. Pro and Enterprise plans support multi-branch management so inventory, sales, and operations can be run across locations with dedicated KAIONEX software products.",
   },
   {
     question: "Which products are available today?",
@@ -51,12 +51,12 @@ export const trustItems = [
     description: "Role-based permissions for owners, managers, and cashiers.",
   },
   {
-    title: "Connected Data",
-    description: "Operational and financial activity stays linked across modules.",
+    title: "Purpose-Built Suite",
+    description: "Dedicated software products for sales, finance, people, and commerce.",
   },
   {
     title: "Multi-Branch",
-    description: "Run locations from one connected business platform.",
+    description: "Run locations and stores with purpose-built KAIONEX software.",
   },
   {
     title: "Offline-Ready POS",
@@ -74,19 +74,19 @@ export const trustItems = [
 
 export const whyKaionex = [
   {
-    title: "One Connected Platform",
+    title: "Purpose-Built Software",
     description:
-      "Sales, finance, inventory, commerce, and workforce workflows share one ecosystem instead of disconnected tools.",
+      "Sales, finance, commerce, and workforce tools built under one brand with a consistent philosophy and design.",
   },
   {
     title: "Operational Visibility",
     description:
-      "See stock, revenue, orders, and operational activity across the modules you use.",
+      "Clear records, reports, and workflows designed for the specific operational needs of each team.",
   },
   {
     title: "Built to Scale",
     description:
-      "Start with the modules you need, then expand to multi-branch, automation, and advanced controls.",
+      "Start with the products you need, then adopt additional KAIONEX software as your business grows.",
   },
   {
     title: "Access Controls",
@@ -96,7 +96,7 @@ export const whyKaionex = [
   {
     title: "Works Across Locations",
     description:
-      "Manage counters, stores, warehouses, and branches from one shared operational layer.",
+      "Deploy software across counters, stores, warehouses, and branches with reliable operational controls.",
   },
   {
     title: "Business Analytics",

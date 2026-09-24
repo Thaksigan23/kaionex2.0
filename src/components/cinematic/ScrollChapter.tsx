@@ -83,10 +83,10 @@ export function ScrollChapter({
               <span className="cine-event-dot" />
               {footnote ?? (
                 product === "fms"
-                  ? "The POS sale, now visible in finance. Sample transaction: $40.70."
+                  ? "Clear financial management, ledger tracking, and cash-flow visibility with KAIONEX FMS."
                   : product === "ecommerce"
-                    ? "One inventory picture, from your counter to your online store."
-                    : "The people behind the operation, in the same picture."
+                    ? "Dedicated digital storefront management and order fulfillment with E-Commerce."
+                    : "Workforce coordination, task tracking, and team communication with KAIONEX EMS."
               )}
             </div>
           </motion.div>

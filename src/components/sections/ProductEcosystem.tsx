@@ -31,34 +31,34 @@ const detailByProduct: Record<ProductId, Detail> = {
   pos: {
     icon: MonitorSmartphone,
     description: "Run sales, payments, receipts, and day-to-day counter operations.",
-    contexts: ["Sales", "Inventory", "Orders", "Financial records"],
+    contexts: ["Point of Sale", "Checkout & Billing", "Cash & Card Payments", "Counter Operations"],
   },
   ems: {
     icon: UsersRound,
     description:
-      "Bring employee information, tasks, work visibility, and team communication into one workspace.",
-    contexts: ["Employees", "Tasks", "Work activity", "Team operations"],
+      "Manage employee information, tasks, work visibility, and team communication in a dedicated workspace.",
+    contexts: ["Employee Profiles", "Shift & Roster Planning", "Task Management", "Team Chat"],
   },
   fms: {
     icon: CircleDollarSign,
     description:
-      "Keep financial activity and business reporting connected to operations.",
-    contexts: ["Income", "Expenses", "Payments", "Financial reporting"],
+      "Manage accounting, invoices, expenses, and cash flow for clear financial visibility.",
+    contexts: ["Financial Ledgers", "Income & Expenses", "Cash Flow Visibility", "Invoicing & Reports"],
   },
   ecommerce: {
     icon: ShoppingBag,
     description:
-      "Connect online commerce with the operational systems behind the business.",
-    contexts: ["Products", "Orders", "Inventory", "Sales"],
+      "Dedicated digital commerce software for online storefronts, catalog management, and order fulfillment.",
+    contexts: ["Online Catalog", "Order Management", "Storefront Workflows", "Fulfillment Tracking"],
   },
   crm: {
     icon: UsersRound,
     description:
-      "A future customer-management layer being developed for the KAIONEX ecosystem.",
+      "A future customer-management product currently being developed for the KAIONEX portfolio.",
     contexts: [
-      "Planned customer profiles",
-      "Planned relationship context",
-      "Planned follow-up workflows",
+      "Customer profiles (Planned)",
+      "Relationship context (Planned)",
+      "Follow-up workflows (Planned)",
     ],
   },
 };
@@ -136,19 +136,21 @@ export function ProductEcosystem({ cinematic = false, revealCount = 4 }: { cinem
       <Container wide>
         {!cinematic && <Reveal>
           <SectionHeading
-            eyebrow="Ecosystem"
-            title="Everything your business needs. Connected."
-            description="See how POS, EMS, FMS, and E-Commerce connect through one KAIONEX core — and how CRM will extend the ecosystem."
+            eyebrow="Product Portfolio"
+            title="One KAIONEX. Multiple business products."
+            description="Explore purpose-built business software for sales, workforce, finance, and online commerce — all under the KAIONEX brand."
             className="mb-8 lg:mb-10"
           />
         </Reveal>}
 
-        <EcosystemScenarioControls
-          scenario={scenario}
-          stepIndex={stepIndex}
-          onSelect={startScenario}
-          onReplay={() => startScenario()}
-        />
+        {!cinematic && (
+          <EcosystemScenarioControls
+            scenario={scenario}
+            stepIndex={stepIndex}
+            onSelect={startScenario}
+            onReplay={() => startScenario()}
+          />
+        )}
 
         <Reveal y={18}>
           <div className="overflow-hidden rounded-[22px] border border-black/[0.08] bg-white shadow-kx-sm">
@@ -161,7 +163,7 @@ export function ProductEcosystem({ cinematic = false, revealCount = 4 }: { cinem
               <div className="border-b border-black/[0.07] bg-[radial-gradient(circle_at_50%_0%,rgba(0,179,122,0.11),transparent_52%)] px-4 pb-5 pt-6 sm:px-6">
                 <div className="mx-auto flex size-24 flex-col items-center justify-center rounded-full border border-brand/35 bg-navy-900 text-center shadow-kx-md">
                   <span className="font-display text-sm font-bold tracking-wide text-white">KAIONEX</span>
-                  <span className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-brand-soft">Core</span>
+                  <span className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-brand-soft">Products</span>
                 </div>
                 <div className="mx-auto mt-5 grid max-w-md grid-cols-2 gap-2 sm:grid-cols-3">
                   {products.map((product) => (
@@ -178,11 +180,11 @@ export function ProductEcosystem({ cinematic = false, revealCount = 4 }: { cinem
   );
 }
 
-function EcosystemMap({ selectedId, onSelect, reduce, activeIds, eventKey }: { selectedId: ProductId; onSelect: (id: ProductId) => void; reduce: boolean; activeIds: ProductId[]; eventKey?: string }) {
+function EcosystemMap({ selectedId, onSelect, reduce, activeIds }: { selectedId: ProductId; onSelect: (id: ProductId) => void; reduce: boolean; activeIds: ProductId[]; eventKey?: string }) {
   return (
     <div className="relative min-h-[40rem] overflow-hidden border-r border-black/[0.07] bg-[radial-gradient(circle_at_50%_50%,rgba(0,179,122,0.1),transparent_36%),radial-gradient(rgba(15,23,42,0.09)_0.7px,transparent_0.7px)] bg-[length:auto,18px_18px] p-7 xl:p-9">
-      <p className="relative z-10 text-[10px] font-bold uppercase tracking-[0.17em] text-slate-500">Select a product to inspect its operating context</p>
-      <p className="relative z-10 mt-1 text-sm text-slate-500">Available products connect through the KAIONEX Core.</p>
+      <p className="relative z-10 text-[10px] font-bold uppercase tracking-[0.17em] text-slate-500">Select a product to inspect its operational role</p>
+      <p className="relative z-10 mt-1 text-sm text-slate-500">Purpose-built business software under the KAIONEX brand.</p>
 
       <svg aria-hidden className="absolute inset-0 size-full" viewBox="0 0 100 100" preserveAspectRatio="none">
         {desktopNodes.map((node) => {
@@ -204,16 +206,6 @@ function EcosystemMap({ selectedId, onSelect, reduce, activeIds, eventKey }: { s
                 viewport={{ once: true, amount: 0.35 }}
                 transition={{ duration: reduce ? 0 : 0.45, delay: reduce ? 0 : 0.08, ease: "easeOut" }}
               />
-              {selected && eventKey && node.id === selectedId && !reduce ? (
-                <motion.circle
-                  key={eventKey}
-                  r="0.7"
-                  fill={future ? "#d97706" : "#00b37a"}
-                  initial={{ cx: node.x, cy: node.y, opacity: 0 }}
-                  animate={{ cx: [node.x, corePosition.x], cy: [node.y, corePosition.y], opacity: [0, 1, 1, 0] }}
-                  transition={{ duration: 1.1, ease: "easeOut" }}
-                />
-              ) : null}
             </g>
           );
         })}
@@ -229,8 +221,8 @@ function EcosystemMap({ selectedId, onSelect, reduce, activeIds, eventKey }: { s
       >
         <span className="absolute inset-2 rounded-full border border-white/10" />
         <span className="font-display text-base font-bold tracking-wide text-white">KAIONEX</span>
-        <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-soft">Core</span>
-        <span className="mt-3 flex items-center gap-1 text-[8px] font-semibold uppercase tracking-[0.12em] text-white/55"><span className="size-1.5 rounded-full bg-brand" /> System map</span>
+        <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-soft">Product Suite</span>
+        <span className="mt-3 flex items-center gap-1 text-[8px] font-semibold uppercase tracking-[0.12em] text-white/55"><span className="size-1.5 rounded-full bg-brand" /> Portfolio Map</span>
       </motion.div>
 
       {desktopNodes.map((node) => {
@@ -290,7 +282,7 @@ function ProductInspector({ product, detail, reduce, activeStep, mobile = false 
           <motion.div key={product.id} initial={reduce ? false : { opacity: 0, y: 7 }} animate={{ opacity: 1, y: 0 }} exit={reduce ? undefined : { opacity: 0, y: -5 }} transition={{ duration: reduce ? 0 : 0.22, ease: "easeOut" }}>
             {activeStep ? (
               <div className="mb-4 rounded-lg border border-brand/20 bg-brand/[0.06] px-3 py-2" aria-live="polite">
-                <p className="text-[9px] font-bold uppercase tracking-[0.13em] text-brand">Live demo event · {activeStep.label}</p>
+                <p className="text-[9px] font-bold uppercase tracking-[0.13em] text-brand">Demo product event · {activeStep.label}</p>
                 <p className="mt-0.5 text-xs leading-relaxed text-navy-700">{activeStep.detail}</p>
               </div>
             ) : null}
@@ -304,7 +296,7 @@ function ProductInspector({ product, detail, reduce, activeStep, mobile = false 
             <div className="mt-5"><ProductSnippet product={product.id} /></div>
             <p className="mt-5 text-sm leading-relaxed text-slate-600">{detail.description}</p>
             <div className="mt-6 border-t border-black/[0.07] pt-5">
-              <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500">{future ? "Planned ecosystem context" : "Connected operations"}</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500">{future ? "Planned product capabilities" : "Product capabilities"}</p>
               <ul className="mt-3 grid gap-2">
                 {detail.contexts.map((context) => <li key={context} className="flex items-center gap-2.5 rounded-lg border border-black/[0.06] bg-paper/65 px-3 py-2 text-xs font-medium text-navy-700"><span className={cn("size-1.5 rounded-full", future ? "bg-amber" : "bg-brand")} />{context}</li>)}
               </ul>

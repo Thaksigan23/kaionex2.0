@@ -29,11 +29,10 @@ export function Footer() {
           <div className="max-w-xl">
             <Logo height={32} className="rounded-sm" />
             <p className="mt-6 text-sm font-semibold text-brand-soft">
-              Connected business software ecosystem
+              Business software product family
             </p>
             <p className="mt-3 max-w-[31rem] text-sm leading-relaxed text-white/60">
-              {siteConfig.tagline} Bring sales, people, finance, and commerce
-              into one connected operating layer.
+              {siteConfig.tagline} Purpose-built software for sales, people, finance, and commerce under one brand.
             </p>
 
             <address className="mt-7 space-y-3 not-italic text-sm text-white/70">

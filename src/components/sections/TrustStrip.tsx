@@ -12,19 +12,19 @@ import { Reveal } from "@/components/ui/Reveal";
 const items = [
   {
     icon: Network,
-    signal: "One core",
-    title: "Connected Ecosystem",
-    description: "Sales, finance, people, and commerce share one KAIONEX core.",
+    signal: "One brand",
+    title: "Product Family",
+    description: "Sales, finance, people, and commerce built under the KAIONEX brand.",
   },
   {
     icon: Layers,
     signal: "4 live products",
-    title: "Multi-Product Platform",
-    description: "POS, EMS, FMS, and E-Commerce work across one connected platform.",
+    title: "Business Software Suite",
+    description: "POS, EMS, FMS, and E-Commerce designed for different operational needs.",
   },
   {
     icon: Building2,
-    signal: "Connected ops",
+    signal: "Operational fit",
     title: "Business Operations",
     description: "Built for retail, hospitality, services, and multi-location teams.",
   },

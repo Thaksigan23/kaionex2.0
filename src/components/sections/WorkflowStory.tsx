@@ -13,45 +13,39 @@ import { cn } from "@/lib/utils";
 
 const steps = [
   {
-    title: "Customer order",
+    title: "KAIONEX POS",
     description:
-      "A purchase starts in POS or E-Commerce and is captured in KAIONEX.",
-    systems: ["POS", "E-Commerce"],
-    cue: "Order #1048 · sample",
+      "Fast, offline-ready point of sale built for retail counters and service desks.",
+    systems: ["POS"],
+    cue: "Counter checkout · $40.70",
   },
   {
-    title: "POS / E-Commerce processes",
+    title: "E-Commerce",
     description:
-      "Checkout and online order flows share inventory and fulfillment context.",
-    systems: ["POS", "E-Commerce"],
-    cue: "Processing · channel sync",
+      "Dedicated digital commerce software for online catalogs, orders, and fulfillment.",
+    systems: ["E-Commerce"],
+    cue: "Online order #1048 · ready",
   },
   {
-    title: "Inventory updates",
+    title: "KAIONEX FMS",
     description:
-      "Stock levels adjust across counters, stores, and online channels.",
-    systems: ["POS", "E-Commerce"],
-    cue: "Ceramic Mug · 27 → 26",
-  },
-  {
-    title: "FMS receives financials",
-    description: "Revenue and payment records stay linked to the transaction.",
+      "Financial management software for ledgers, income, expenses, and cash flow visibility.",
     systems: ["FMS"],
-    cue: "Ledger · +$12.00",
+    cue: "Ledger entry · Batch #4012",
   },
   {
-    title: "EMS shows operations",
+    title: "KAIONEX EMS",
     description:
-      "Workforce tasks and ownership stay visible behind the sale.",
+      "Workforce management software for employee profiles, rosters, tasks, and team chat.",
     systems: ["EMS"],
-    cue: "Task · Pack & confirm",
+    cue: "Shift active · 24 on roster",
   },
   {
-    title: "CRM — future customer layer",
+    title: "KAIONEX CRM — Future Product",
     description:
-      "As CRM arrives, relationship history is intended to connect to commerce.",
+      "Customer and client management currently under development for the KAIONEX portfolio.",
     systems: ["CRM"],
-    cue: "Coming Soon · preview",
+    cue: "Coming Soon · Concept preview",
     soon: true,
   },
 ];
@@ -174,9 +168,9 @@ export function WorkflowStory() {
       />
       <Container wide className="relative">
         <SectionHeading
-          eyebrow="Connected workflow"
-          title="One action. Every system stays connected."
-          description="Follow a sample order through POS / E-Commerce, inventory, finance, operations — and the future CRM layer."
+          eyebrow="Product Portfolio"
+          title="Purpose-built software. One KAIONEX brand."
+          description="Explore how KAIONEX products serve different operational areas — counter sales, digital commerce, business finance, workforce coordination, and the future CRM layer."
           tone="light"
           className="mb-10 max-w-3xl lg:mb-12"
         />
@@ -186,7 +180,7 @@ export function WorkflowStory() {
           {/* Desktop flow legend */}
           <div className="hidden rounded-xl border border-white/10 bg-white/[0.03] p-5 lg:block">
             <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-soft">
-              Data path
+              Portfolio areas
             </p>
             <ol className="mt-4 space-y-0">
               {steps.map((step, i) => (
@@ -219,7 +213,7 @@ export function WorkflowStory() {
               ))}
             </ol>
             <p className="mt-2 text-[11px] text-white/40">
-              Demo narrative · fictional amounts · CRM remains Coming Soon
+              Portfolio showcase · Illustrative demo samples · CRM remains Coming Soon
             </p>
           </div>
 

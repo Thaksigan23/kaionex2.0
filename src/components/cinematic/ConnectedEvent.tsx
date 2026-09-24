@@ -27,35 +27,35 @@ export function ConnectedEvent() {
     <section
       ref={ref}
       className="cine-connection"
-      aria-label="Follow the illustrative sale through KAIONEX"
+      aria-label="Transition from KAIONEX POS to KAIONEX FMS"
     >
       <div className="cine-connection-sticky">
         <div className="cine-connection-heading">
-          <p className="cine-eyebrow">THE MOMENT SYSTEMS CONNECT</p>
+          <p className="cine-eyebrow">PORTFOLIO TRANSITION</p>
           <h2>
-            A sale doesn’t stop
+            From sales
             <br />
-            <em>at the counter.</em>
+            to <em>finance.</em>
           </h2>
           <p>
-            One action becomes shared context.
+            While KAIONEX POS handles checkout at the counter,
             <br />
-            Follow the same demo sale through KAIONEX.
+            KAIONEX FMS provides dedicated tools for financial management.
           </p>
         </div>
 
-        {/* Visual Shared Operational Layer: POS -> CORE -> 3 Outcomes */}
+        {/* Visual Editorial Transition: POS -> SUITE -> FMS */}
         <div className="cine-event-stage">
           {/* Top origin: POS */}
           <div className="flex items-center justify-between text-[9px] font-mono tracking-wider uppercase text-slate-400 mb-3 px-1">
             <span className="flex items-center gap-1.5 text-brand">
               <Check size={12} />
-              COUNTER 02 / SALE COMPLETED
+              KAIONEX POS · CHECKOUT COMPLETED
             </span>
-            <span>SHARED OPERATIONAL FLOW</span>
+            <span>PORTFOLIO TRANSITION</span>
           </div>
 
-          {/* Travelling Transaction Card */}
+          {/* Editorial Transition Card */}
           <motion.div
             className="cine-travelling-event"
             style={cinematic ? { y: eventY } : undefined}
@@ -63,25 +63,25 @@ export function ConnectedEvent() {
             <span className="cine-event-dot" />
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between">
-                <small>DEMO TRANSACTION · POS-8841</small>
+                <small>NEXT PRODUCT IN PORTFOLIO</small>
                 <span className="text-[9px] font-mono text-brand font-semibold">
-                  +$40.70
+                  CHAPTER 02
                 </span>
               </div>
               <strong>
-                2 × Organic Coffee Beans
-                <b className="ml-2 font-normal text-slate-400">Paid by Card</b>
+                Introducing KAIONEX FMS
+                <b className="ml-2 font-normal text-slate-400">Finance & Ledgers</b>
               </strong>
             </div>
             <ArrowRight size={16} className="text-brand shrink-0" />
           </motion.div>
 
-          {/* Core Hub */}
+          {/* Suite Brand Hub */}
           <div className="relative my-6 flex flex-col items-center">
-            {/* Connecting line down to Core */}
+            {/* Connecting line */}
             <div className="h-6 w-px bg-gradient-to-b from-brand to-brand/40" />
 
-            {/* Core Node */}
+            {/* Brand Suite Node */}
             <motion.div
               className="relative flex items-center gap-2.5 rounded-xl border bg-navy-900 px-5 py-3 shadow-[0_12px_28px_rgba(7,17,31,0.5)] z-10"
               style={
@@ -93,18 +93,18 @@ export function ConnectedEvent() {
               </span>
               <div>
                 <span className="block text-[8px] font-mono tracking-widest text-slate-400 uppercase">
-                  CENTRAL PLATFORM
+                  BUSINESS SOFTWARE SUITE
                 </span>
                 <strong className="block text-sm font-semibold text-white tracking-tight">
-                  KAIONEX CORE
+                  KAIONEX
                 </strong>
               </div>
               <span className="ml-2 rounded bg-brand/10 px-2 py-0.5 text-[9px] font-mono font-medium text-brand">
-                Synchronizing
+                Product Family
               </span>
             </motion.div>
 
-            {/* Connecting line from Core to Outcomes */}
+            {/* Connecting line to Outcomes */}
             <div className="h-6 w-px bg-gradient-to-b from-brand/40 to-transparent relative overflow-hidden">
               <motion.div
                 className="absolute inset-x-0 top-0 h-full bg-brand"
@@ -113,30 +113,30 @@ export function ConnectedEvent() {
             </div>
           </div>
 
-          {/* 3 Synchronized Operational Outcomes */}
-          <ol className="cine-event-outcomes" aria-label="Connected operational updates">
+          {/* 3 Distinct Products in Suite */}
+          <ol className="cine-event-outcomes" aria-label="KAIONEX product family offerings">
             {[
               {
                 num: "01",
-                engine: "CENTRAL INVENTORY",
-                title: "Stock decremented",
-                detail: "Organic Coffee Beans: 42 → 40 units",
-                state: "Synced",
+                engine: "KAIONEX POS",
+                title: "Sales & Retail",
+                detail: "Counter checkout, payments, and offline-ready billing.",
+                state: "Explored",
               },
               {
                 num: "02",
-                engine: "FMS (FINANCE)",
-                title: "Transaction recorded",
-                detail: "Ledger updated: +$40.70 credited (POS-8841)",
+                engine: "KAIONEX FMS",
+                title: "Finance & Ledgers",
+                detail: "Income, expenses, cash flow, and financial reporting.",
                 state: "Next Chapter →",
                 highlight: true,
               },
               {
                 num: "03",
-                engine: "E-COMMERCE",
-                title: "Storefront synchronized",
-                detail: "Web catalog stock reflected: 40 units",
-                state: "Live Sync",
+                engine: "E-COMMERCE & EMS",
+                title: "Commerce & Workforce",
+                detail: "Dedicated software for digital storefronts and team operations.",
+                state: "Upcoming",
               },
             ].map((item, i) => {
               const isReached = !cinematic || step >= i + 1;

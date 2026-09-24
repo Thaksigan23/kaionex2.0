@@ -37,7 +37,7 @@ export function HeroProductSceneMobile({ className }: { className?: string }) {
             <Layers3 size={13} />
           </span>
           <span className="text-xs font-semibold text-white">KAIONEX</span>
-          <span className="text-[10px] text-slate-400">/ Overview</span>
+          <span className="text-[10px] text-slate-400">/ Product Suite</span>
         </div>
         <span className="rounded border border-white/10 bg-white/5 px-2 py-0.5 text-[8px] font-semibold text-slate-400">
           DEMO
@@ -68,22 +68,22 @@ export function HeroProductSceneMobile({ className }: { className?: string }) {
         })}
       </div>
 
-      {/* Core Operational Stats */}
+      {/* Independent Product Stats */}
       <div className="grid grid-cols-3 gap-2 p-3">
         <div className="rounded-lg border border-white/[0.07] bg-white/[0.02] p-2">
           <span className="text-[8px] uppercase tracking-wide text-slate-400">
             POS Sales
           </span>
           <p className="mt-0.5 text-xs font-semibold text-white">
-            {currentStep.step >= 2 ? "$4,240.70" : "$4,200.00"}
+            $4,240.70
           </p>
         </div>
         <div className="rounded-lg border border-white/[0.07] bg-white/[0.02] p-2">
           <span className="text-[8px] uppercase tracking-wide text-slate-400">
-            Stock
+            Workforce
           </span>
           <p className="mt-0.5 text-xs font-semibold text-white">
-            {currentStep.stock}
+            24 active
           </p>
         </div>
         <div className="rounded-lg border border-white/[0.07] bg-white/[0.02] p-2">
@@ -91,7 +91,7 @@ export function HeroProductSceneMobile({ className }: { className?: string }) {
             FMS Revenue
           </span>
           <p className="mt-0.5 text-xs font-semibold text-white">
-            {currentStep.fmsRevenue}
+            $48,200.00
           </p>
         </div>
       </div>
@@ -128,7 +128,7 @@ export function HeroProductSceneMobile({ className }: { className?: string }) {
           type="button"
           onClick={replay}
           className="flex items-center gap-1 font-medium text-brand hover:underline"
-          aria-label="Replay demo workflow"
+          aria-label="Replay product showcase"
         >
           <RotateCcw size={10} />
           <span>Replay</span>

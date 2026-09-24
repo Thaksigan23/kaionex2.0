@@ -14,24 +14,24 @@ export function ProductChapters() {
         name="KAIONEX FMS"
         title={
           <>
-            Every
+            Finance.
             <br />
-            transaction.
+            Clearly
             <br />
-            <em>Visible.</em>
+            <em>managed.</em>
           </>
         }
-        description="The sale leaves the counter, not the picture. Keep financial activity connected to the operation that created it."
+        description="A dedicated KAIONEX product for financial management. Track income, monitor expenses, manage cash flow, and maintain clear records for your business."
         steps={[
-          "Sale arrives from POS",
-          "Transaction recorded",
-          "Financial summary updates",
-          "Invoice status visible",
-          "Cash-flow chart responds",
-          "One financial picture",
+          "Income & expense tracking",
+          "Operating ledger entries",
+          "Cash-flow monitoring",
+          "Invoice status visibility",
+          "Revenue summaries",
+          "Financial control",
         ]}
         reverse={true}
-        footnote="The POS sale (#POS-8841 · $40.70) automatically credits revenue ($48,240.70) and records into the financial ledger."
+        footnote="Illustrative financial records showing invoice tracking and cash flow in KAIONEX FMS."
       >
         <FmsDemo storyMode />
       </ScrollChapter>
@@ -42,22 +42,23 @@ export function ProductChapters() {
         name="E-Commerce"
         title={
           <>
-            Online orders.
+            Sell online.
             <br />
-            <em>Shared stock.</em>
+            Manage
+            <br />
+            <em>orders.</em>
           </>
         }
-        description="An online order. The same operational foundation. Inventory and fulfillment stay connected to the rest of your business."
+        description="A dedicated digital commerce product in the KAIONEX portfolio. Manage digital storefronts, receive online orders, and guide fulfillment from purchase to completion."
         steps={[
-          "Store ready",
-          "New order received",
+          "Store catalog active",
+          "Order received",
           "Order processing",
-          "Inventory reserved",
           "Ready for fulfillment",
           "Order fulfilled",
+          "Fulfillment complete",
         ]}
-        bridgeChip="POS Stock (40) ⇄ Online Store Stock (40)"
-        footnote="Central warehouse inventory is decremented from the counter sale; online orders draw from the same stock pool."
+        footnote="Illustrative digital storefront workflow: managing online orders from intake to fulfillment."
         wide={true}
       >
         <EcommerceDemo storyMode />
@@ -71,19 +72,19 @@ export function ProductChapters() {
           <>
             People. Work.
             <br />
-            <em>Visible.</em>
+            <em>Organized.</em>
           </>
         }
-        description="Behind every operation, there are people. Bring attendance, tasks, shifts, and team communication into one workspace."
+        description="A dedicated KAIONEX product for workforce and operations management. Organize staff profiles, assign tasks, monitor shifts, and keep teams communicating."
         steps={[
-          "Employee active",
+          "Active shift roster",
           "Task assigned",
           "Work in progress",
-          "Progress visible",
+          "Progress tracking",
           "Task completed",
-          "Manager visibility",
+          "Team confirmation",
         ]}
-        footnote="Floor operations stay connected: Store Associate executes replenishment and Floor Lead confirms in team chat."
+        footnote="Illustrative workforce coordination: task assignment, monitoring, and team communication in KAIONEX EMS."
       >
         <EmsDemo />
       </ScrollChapter>

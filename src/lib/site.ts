@@ -12,9 +12,9 @@ function whatsappUrl(text: string) {
  */
 export const siteConfig = {
   name: "KAIONEX",
-  tagline: "One ecosystem to run your business.",
+  tagline: "One KAIONEX. Multiple business products.",
   description:
-    "KAIONEX is a connected business software ecosystem from Techloom.ai for sales, employees, finance, and commerce. CRM is coming soon.",
+    "KAIONEX is a business software product family from Techloom.ai for sales, employees, finance, and commerce. CRM is coming soon.",
   /** Production default: https://kaionex.app — override with NEXT_PUBLIC_SITE_URL */
   url: getSiteUrl(),
   parent: {

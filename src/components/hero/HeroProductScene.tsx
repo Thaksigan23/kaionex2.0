@@ -15,74 +15,74 @@ import {
 import { cn } from "@/lib/utils";
 
 /**
- * 6-Step Deterministic Connected Business Sequence:
- * Step 1: POS — Item added to checkout (2 × Organic Beans · $40.70)
- * Step 2: POS — Sale completed ($40.70 payment approved)
- * Step 3: KAIONEX Core — Single emerald signal moves; inventory adjusts 42 → 40 units
- * Step 4: FMS — Transaction recorded in financial ledger (+ $40.70)
- * Step 5: E-Commerce — Online storefront stock synchronized (40 units)
- * Step 6: Calm operational overview (all engines synchronized; hold briefly)
+ * 6-Step Deterministic KAIONEX Product Portfolio Showcase:
+ * Step 1: POS — Sales & Retail (Counter checkout, $40.70 receipt issued)
+ * Step 2: EMS — Employees & Work (24 active on shift, workforce coordination)
+ * Step 3: FMS — Finance (Ledgers, revenue overview, cash flow)
+ * Step 4: E-Commerce — Online Commerce (Digital storefront, order fulfillment)
+ * Step 5: CRM — Customer Management (Coming Soon / Under Development)
+ * Step 6: Product Suite Overview (Purpose-built software under one KAIONEX brand)
  */
 export const HERO_STEPS = [
   {
     step: 1,
     source: "POS",
-    badge: "Item added",
-    description: "2 × Organic Coffee Beans placed in POS cart",
+    badge: "Sales & Retail",
+    description: "Counter checkout approved · $40.70 receipt issued",
     amount: "$40.70",
-    stock: "42 units",
+    workforce: "24 active",
     fmsRevenue: "$48,200.00",
-    onlineStock: "42 units",
+    onlineStock: "27 on hand",
   },
   {
     step: 2,
-    source: "POS",
-    badge: "Sale completed",
-    description: "Counter 02 checkout approved · $40.70 receipt issued",
+    source: "EMS",
+    badge: "Employees & Work",
+    description: "Workforce coordination · 24 on shift · Tasks tracked",
     amount: "$40.70",
-    stock: "42 units",
+    workforce: "24 active",
     fmsRevenue: "$48,200.00",
-    onlineStock: "42 units",
+    onlineStock: "27 on hand",
   },
   {
     step: 3,
-    source: "Core",
-    badge: "Inventory updated",
-    description: "Central catalog decrements Coffee Beans: 42 → 40 units",
+    source: "FMS",
+    badge: "Finance",
+    description: "Financial management · Ledgers, cash flow & invoices recorded",
     amount: "$40.70",
-    stock: "40 units",
+    workforce: "24 active",
     fmsRevenue: "$48,200.00",
-    onlineStock: "42 units",
+    onlineStock: "27 on hand",
   },
   {
     step: 4,
-    source: "FMS",
-    badge: "Ledger recorded",
-    description: "Sale +$40.70 credited to operating account (POS-8841)",
+    source: "E-Commerce",
+    badge: "Online Commerce",
+    description: "Digital storefront · Order #1048 ready for fulfillment",
     amount: "$40.70",
-    stock: "40 units",
-    fmsRevenue: "$48,240.70",
-    onlineStock: "42 units",
+    workforce: "24 active",
+    fmsRevenue: "$48,200.00",
+    onlineStock: "27 on hand",
   },
   {
     step: 5,
-    source: "E-Commerce",
-    badge: "Stock synchronized",
-    description: "Online web store stock updated to 40 units in real time",
+    source: "CRM",
+    badge: "Coming Soon",
+    description: "Customer management · Under development for the KAIONEX family",
     amount: "$40.70",
-    stock: "40 units",
-    fmsRevenue: "$48,240.70",
-    onlineStock: "40 units",
+    workforce: "24 active",
+    fmsRevenue: "$48,200.00",
+    onlineStock: "27 on hand",
   },
   {
     step: 6,
-    source: "Overview",
-    badge: "Ecosystem synchronized",
-    description: "One sale · Connected inventory, finance, and commerce",
+    source: "Portfolio",
+    badge: "Product Suite",
+    description: "Purpose-built business software · Built under one KAIONEX brand",
     amount: "$40.70",
-    stock: "40 units",
-    fmsRevenue: "$48,240.70",
-    onlineStock: "40 units",
+    workforce: "24 active",
+    fmsRevenue: "$48,200.00",
+    onlineStock: "27 on hand",
   },
 ] as const;
 
@@ -93,8 +93,8 @@ export function useHeroWorkflow(isPaused = false) {
   useEffect(() => {
     if (reduce || isPaused) return;
 
-    // Step pacing: Step 1 (1.8s), Step 2 (1.8s), Step 3 (1.8s), Step 4 (1.8s), Step 5 (1.8s), Step 6 (2.8s calm pause)
-    const durations = [1800, 1800, 1800, 1800, 1800, 2800];
+    // Step pacing: Step 1 (2.0s), Step 2 (2.0s), Step 3 (2.0s), Step 4 (2.0s), Step 5 (2.0s), Step 6 (2.8s calm pause)
+    const durations = [2000, 2000, 2000, 2000, 2000, 2800];
     const duration = durations[stepIndex] ?? 2000;
 
     const timer = window.setTimeout(() => {
@@ -123,7 +123,7 @@ interface NavModule {
 }
 
 const navModules: NavModule[] = [
-  { id: "overview", label: "Overview", icon: Layers3, active: true },
+  { id: "portfolio", label: "Suite", icon: Layers3, active: true },
   { id: "pos", label: "POS", icon: MonitorSmartphone, tag: "Lane 02" },
   { id: "ems", label: "Employees", icon: UsersRound, tag: "24 active" },
   { id: "fms", label: "Finance", icon: CircleDollarSign, tag: "Ledgers" },
@@ -140,11 +140,11 @@ export function HeroProductScene({ className }: { className?: string }) {
   const isStep4 = stepIndex === 3;
   const isStep5 = stepIndex === 4;
 
-  // Active highlighted areas based on the deterministic sequence
-  const posHighlight = (isStep1 || isStep2) && !reduce;
-  const coreHighlight = isStep3 && !reduce;
-  const fmsHighlight = isStep4 && !reduce;
-  const ecomHighlight = isStep5 && !reduce;
+  // Active highlighted areas based on the independent product sequence
+  const posHighlight = isStep1 && !reduce;
+  const emsHighlight = isStep2 && !reduce;
+  const fmsHighlight = isStep3 && !reduce;
+  const ecomHighlight = isStep4 && !reduce;
 
   return (
     <div
@@ -175,10 +175,10 @@ export function HeroProductScene({ className }: { className?: string }) {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
             </span>
             <span className="font-semibold text-slate-300">
-              OPERATIONAL ENVIRONMENT
+              KAIONEX PRODUCT SUITE
             </span>
             <span className="hidden sm:inline text-white/20">/</span>
-            <span className="hidden sm:inline text-brand-soft">4 ENGINES CONNECTED</span>
+            <span className="hidden sm:inline text-brand-soft">5 PRODUCTS · ONE BRAND</span>
           </div>
           <span className="rounded border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[9px] font-semibold text-slate-400">
             DEMO · SAMPLE DATA
@@ -187,12 +187,7 @@ export function HeroProductScene({ className }: { className?: string }) {
 
         {/* DOMINANT INTERFACE: Main Application Window */}
         <motion.div
-          className={cn(
-            "relative rounded-2xl border bg-navy-950/95 shadow-[0_24px_64px_rgba(7,17,31,0.6)] backdrop-blur-sm transition-colors duration-500",
-            coreHighlight
-              ? "border-brand/40 shadow-[0_24px_64px_rgba(18,201,140,0.12)]"
-              : "border-white/12",
-          )}
+          className="relative rounded-2xl border border-white/12 bg-navy-950/95 shadow-[0_24px_64px_rgba(7,17,31,0.6)] backdrop-blur-sm transition-colors duration-500"
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -216,7 +211,7 @@ export function HeroProductScene({ className }: { className?: string }) {
                 </span>
                 <span className="text-[11px] text-white/40">/</span>
                 <span className="text-[11px] font-medium text-slate-300">
-                  Operational Overview
+                  Product Suite Showcase
                 </span>
               </div>
             </div>
@@ -224,7 +219,7 @@ export function HeroProductScene({ className }: { className?: string }) {
             <div className="flex items-center gap-2">
               <span className="flex items-center gap-1.5 rounded-full bg-brand/10 px-2.5 py-0.5 text-[10px] font-medium text-brand">
                 <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-                Live Sync Active
+                Product Portfolio
               </span>
             </div>
           </div>
@@ -238,7 +233,7 @@ export function HeroProductScene({ className }: { className?: string }) {
             >
               <div className="space-y-1">
                 <p className="px-2 pb-1.5 text-[9px] font-semibold uppercase tracking-wider text-white/35">
-                  Modules
+                  Products
                 </p>
                 {navModules.map((item) => {
                   const Icon = item.icon;
@@ -284,7 +279,7 @@ export function HeroProductScene({ className }: { className?: string }) {
             {/* Main Content Area */}
             <div className="flex-1 min-w-0 p-4 flex flex-col justify-between">
               <div>
-                {/* 4 Connected Operational Metric Cards */}
+                {/* 4 Independent Product Metric Cards */}
                 <div className="grid grid-cols-4 gap-2 mb-4">
                   {/* Metric 1: POS Sales */}
                   <div
@@ -298,41 +293,31 @@ export function HeroProductScene({ className }: { className?: string }) {
                     <span className="text-[9px] uppercase tracking-wide text-slate-400">
                       POS Sales
                     </span>
-                    <motion.p
-                      key={currentStep.step >= 2 ? "pos-after" : "pos-before"}
-                      initial={reduce ? false : { scale: 1.05 }}
-                      animate={{ scale: 1 }}
-                      className="mt-1 text-sm font-semibold text-white tracking-tight"
-                    >
-                      {currentStep.step >= 2 ? "$4,240.70" : "$4,200.00"}
-                    </motion.p>
+                    <p className="mt-1 text-sm font-semibold text-white tracking-tight">
+                      $4,240.70
+                    </p>
                     <span className="mt-0.5 block text-[9px] text-brand">
-                      {currentStep.step >= 2 ? "+$40.70 recorded" : "Lane 02 active"}
+                      Lane 02 active
                     </span>
                   </div>
 
-                  {/* Metric 2: Core Stock */}
+                  {/* Metric 2: EMS Workforce */}
                   <div
                     className={cn(
                       "rounded-xl border p-2.5 transition-colors duration-300",
-                      coreHighlight
+                      emsHighlight
                         ? "border-brand/40 bg-brand/[0.08]"
                         : "border-white/[0.07] bg-white/[0.02]",
                     )}
                   >
                     <span className="text-[9px] uppercase tracking-wide text-slate-400">
-                      Shared Stock
+                      EMS Workforce
                     </span>
-                    <motion.p
-                      key={currentStep.stock}
-                      initial={reduce ? false : { scale: 1.05 }}
-                      animate={{ scale: 1 }}
-                      className="mt-1 text-sm font-semibold text-white tracking-tight"
-                    >
-                      {currentStep.stock}
-                    </motion.p>
-                    <span className="mt-0.5 block text-[9px] text-slate-400">
-                      Coffee Beans
+                    <p className="mt-1 text-sm font-semibold text-white tracking-tight">
+                      24 active
+                    </p>
+                    <span className="mt-0.5 block text-[9px] text-brand">
+                      17 tasks completed
                     </span>
                   </div>
 
@@ -348,20 +333,15 @@ export function HeroProductScene({ className }: { className?: string }) {
                     <span className="text-[9px] uppercase tracking-wide text-slate-400">
                       FMS Revenue
                     </span>
-                    <motion.p
-                      key={currentStep.fmsRevenue}
-                      initial={reduce ? false : { scale: 1.05 }}
-                      animate={{ scale: 1 }}
-                      className="mt-1 text-sm font-semibold text-white tracking-tight"
-                    >
-                      {currentStep.fmsRevenue}
-                    </motion.p>
+                    <p className="mt-1 text-sm font-semibold text-white tracking-tight">
+                      $48,200.00
+                    </p>
                     <span className="mt-0.5 block text-[9px] text-brand">
-                      {currentStep.step >= 4 ? "Ledger posted" : "Cash flow +$12.4k"}
+                      Cash flow +$12.4k
                     </span>
                   </div>
 
-                  {/* Metric 4: E-Commerce Sync */}
+                  {/* Metric 4: E-Commerce Storefront */}
                   <div
                     className={cn(
                       "rounded-xl border p-2.5 transition-colors duration-300",
@@ -374,19 +354,19 @@ export function HeroProductScene({ className }: { className?: string }) {
                       Storefront
                     </span>
                     <p className="mt-1 text-sm font-semibold text-white tracking-tight">
-                      {currentStep.onlineStock}
+                      27 on hand
                     </p>
                     <span className="mt-0.5 block text-[9px] text-brand">
-                      {currentStep.step >= 5 ? "Synced with POS" : "Online catalog"}
+                      Online catalog
                     </span>
                   </div>
                 </div>
 
-                {/* Real-time Activity Feed / Table Rows */}
+                {/* Independent Product Activity Stream */}
                 <div className="rounded-xl border border-white/[0.07] bg-white/[0.015] overflow-hidden">
                   <div className="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.02] px-3 py-2 text-[9px] font-semibold uppercase tracking-wider text-slate-400">
                     <span>Operational Activity Stream</span>
-                    <span className="text-white/40">Real-time status</span>
+                    <span className="text-white/40">Product Overview</span>
                   </div>
 
                   <div className="divide-y divide-white/[0.04] text-xs">
@@ -419,24 +399,17 @@ export function HeroProductScene({ className }: { className?: string }) {
                       </div>
                       <div className="text-right">
                         <span className="font-semibold text-white">$40.70</span>
-                        <span
-                          className={cn(
-                            "ml-2 inline-flex items-center rounded px-1.5 py-0.5 text-[9px] font-semibold",
-                            currentStep.step >= 2
-                              ? "bg-brand/15 text-brand"
-                              : "bg-amber/15 text-amber",
-                          )}
-                        >
-                          {currentStep.step >= 2 ? "Completed" : "Active Cart"}
+                        <span className="ml-2 inline-flex items-center rounded px-1.5 py-0.5 text-[9px] font-semibold bg-brand/15 text-brand">
+                          Completed
                         </span>
                       </div>
                     </div>
 
-                    {/* Row 2: Central Inventory */}
+                    {/* Row 2: EMS Workforce */}
                     <div
                       className={cn(
                         "flex items-center justify-between px-3 py-2.5 transition-colors",
-                        coreHighlight
+                        emsHighlight
                           ? "bg-brand/[0.08]"
                           : "hover:bg-white/[0.02]",
                       )}
@@ -445,34 +418,25 @@ export function HeroProductScene({ className }: { className?: string }) {
                         <span
                           className={cn(
                             "flex h-6 w-6 items-center justify-center rounded-md border",
-                            coreHighlight
+                            emsHighlight
                               ? "border-brand/40 bg-brand/20 text-brand"
                               : "border-white/10 bg-white/5 text-slate-400",
                           )}
                         >
-                          <Layers3 size={13} />
+                          <UsersRound size={13} />
                         </span>
                         <div>
                           <p className="font-medium text-white">
-                            Shared Inventory Ledger
+                            EMS Task · Store Associate
                           </p>
                           <p className="text-[10px] text-slate-400">
-                            {currentStep.step >= 3
-                              ? "Coffee Beans decremented: 42 → 40 units"
-                              : "Central stock level: 42 units"}
+                            Aisle B restock completed · 24 on shift
                           </p>
                         </div>
                       </div>
                       <div>
-                        <span
-                          className={cn(
-                            "inline-flex items-center rounded px-1.5 py-0.5 text-[9px] font-semibold",
-                            currentStep.step >= 3
-                              ? "bg-brand/15 text-brand"
-                              : "bg-white/10 text-slate-400",
-                          )}
-                        >
-                          {currentStep.step >= 3 ? "Synced 40 units" : "Holding 42"}
+                        <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[9px] font-semibold bg-brand/15 text-brand">
+                          Completed
                         </span>
                       </div>
                     </div>
@@ -497,29 +461,22 @@ export function HeroProductScene({ className }: { className?: string }) {
                         </span>
                         <div>
                           <p className="font-medium text-white">
-                            FMS Ledger · Entry #POS-8841
+                            FMS Ledger · Entry #FMS-4012
                           </p>
                           <p className="text-[10px] text-slate-400">
-                            Operating ledger · Revenue posted from POS
+                            Operating ledger · Monthly batch settlement
                           </p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <span className="font-semibold text-brand">+$40.70</span>
-                        <span
-                          className={cn(
-                            "ml-2 inline-flex items-center rounded px-1.5 py-0.5 text-[9px] font-semibold",
-                            currentStep.step >= 4
-                              ? "bg-brand/15 text-brand"
-                              : "bg-white/10 text-slate-400",
-                          )}
-                        >
-                          {currentStep.step >= 4 ? "Recorded" : "Pending"}
+                        <span className="font-semibold text-brand">+$2,450.00</span>
+                        <span className="ml-2 inline-flex items-center rounded px-1.5 py-0.5 text-[9px] font-semibold bg-brand/15 text-brand">
+                          Recorded
                         </span>
                       </div>
                     </div>
 
-                    {/* Row 4: E-Commerce Channel Sync */}
+                    {/* Row 4: E-Commerce Storefront */}
                     <div
                       className={cn(
                         "flex items-center justify-between px-3 py-2.5 transition-colors",
@@ -544,20 +501,13 @@ export function HeroProductScene({ className }: { className?: string }) {
                             E-Commerce Web Storefront
                           </p>
                           <p className="text-[10px] text-slate-400">
-                            Online inventory updated · 40 units available
+                            Online order #1048 · 27 units available in catalog
                           </p>
                         </div>
                       </div>
                       <div>
-                        <span
-                          className={cn(
-                            "inline-flex items-center rounded px-1.5 py-0.5 text-[9px] font-semibold",
-                            currentStep.step >= 5
-                              ? "bg-brand/15 text-brand"
-                              : "bg-white/10 text-slate-400",
-                          )}
-                        >
-                          {currentStep.step >= 5 ? "In Sync" : "Syncing"}
+                        <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[9px] font-semibold bg-brand/15 text-brand">
+                          Ready
                         </span>
                       </div>
                     </div>
@@ -578,10 +528,10 @@ export function HeroProductScene({ className }: { className?: string }) {
                   type="button"
                   onClick={replay}
                   className="flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[10px] font-medium text-brand hover:bg-white/[0.08] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-                  aria-label="Replay connected product workflow"
+                  aria-label="Replay product showcase"
                 >
                   <RotateCcw size={11} />
-                  <span>Replay Workflow</span>
+                  <span>Replay Showcase</span>
                 </button>
               </div>
             </div>
@@ -614,7 +564,7 @@ export function HeroProductScene({ className }: { className?: string }) {
               </span>
             </div>
             <span className="text-[9px] font-mono text-brand">
-              {currentStep.step >= 4 ? "+$40.70 POS-8841" : "Cash flow ready"}
+              Cash flow ready
             </span>
           </div>
 
@@ -634,29 +584,25 @@ export function HeroProductScene({ className }: { className?: string }) {
             </div>
             {/* Mini weekly bars */}
             <div className="flex h-7 items-end gap-1" aria-hidden>
-              {[35, 50, 42, 65, 58, 75, currentStep.step >= 4 ? 92 : 78].map(
-                (h, idx) => (
-                  <span
-                    key={idx}
-                    style={{ height: `${h}%` }}
-                    className={cn(
-                      "w-1.5 rounded-t transition-all duration-500",
-                      idx === 6 && currentStep.step >= 4
-                        ? "bg-brand"
-                        : "bg-brand/35",
-                    )}
-                  />
-                ),
-              )}
+              {[35, 50, 42, 65, 58, 75, 84].map((h, idx) => (
+                <span
+                  key={idx}
+                  style={{ height: `${h}%` }}
+                  className={cn(
+                    "w-1.5 rounded-t transition-all duration-500",
+                    idx === 6 ? "bg-brand" : "bg-brand/35",
+                  )}
+                />
+              ))}
             </div>
           </div>
           <div className="mt-2 flex items-center justify-between border-t border-white/[0.06] pt-1.5 text-[9px] text-slate-400">
-            <span>Automatic Ledger Sync</span>
-            <span className="text-brand font-medium">✓ Ledger updated</span>
+            <span>Financial Management</span>
+            <span className="text-brand font-medium">✓ Ledger reporting</span>
           </div>
         </motion.div>
 
-        {/* SUPPORTING SURFACE 2: E-Commerce Sync Surface (Upper Right Overlap) */}
+        {/* SUPPORTING SURFACE 2: E-Commerce Surface (Upper Right Overlap) */}
         <motion.div
           className={cn(
             "hidden lg:block absolute -top-5 -right-3 z-20 w-64 rounded-xl border bg-navy-900/95 p-3 shadow-[0_18px_36px_rgba(7,17,31,0.5)] backdrop-blur-md transition-all duration-300",
@@ -674,7 +620,7 @@ export function HeroProductScene({ className }: { className?: string }) {
                 <ShoppingBag size={11} />
               </span>
               <span className="text-[11px] font-semibold text-white">
-                E-Commerce · Channel Sync
+                E-Commerce · Storefront
               </span>
             </div>
             <span
@@ -687,15 +633,15 @@ export function HeroProductScene({ className }: { className?: string }) {
 
           <div className="mt-2 space-y-1">
             <div className="flex items-center justify-between text-[10px]">
-              <span className="text-slate-400">Organic Coffee Beans</span>
+              <span className="text-slate-400">Ceramic Mug · Sage</span>
               <span className="font-semibold text-white">
-                {currentStep.onlineStock} on hand
+                27 on hand
               </span>
             </div>
             <div className="flex items-center justify-between text-[9px] text-slate-400">
-              <span>POS ↔ Storefront link</span>
+              <span>Digital Storefront</span>
               <span className="text-brand font-medium">
-                {currentStep.step >= 5 ? "Stock Synchronized" : "Channel Linked"}
+                Catalog Active
               </span>
             </div>
           </div>
@@ -703,7 +649,7 @@ export function HeroProductScene({ className }: { className?: string }) {
 
         {/* SUPPORTING SURFACE 3: EMS Workforce Activity Surface (Lower Left Accent) */}
         <motion.div
-          className="hidden xl:block absolute -bottom-5 -left-5 z-20 w-60 rounded-xl border border-white/12 bg-navy-900/95 p-3 shadow-[0_18px_36px_rgba(7,17,31,0.5)] backdrop-blur-md"
+          className="hidden xl:block absolute bottom-2 -left-5 z-20 w-60 rounded-xl border border-white/12 bg-navy-900/95 p-3 shadow-[0_18px_36px_rgba(7,17,31,0.5)] backdrop-blur-md"
           initial={reduce ? false : { opacity: 0, x: -10, scale: 0.96 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.3 }}
@@ -727,12 +673,12 @@ export function HeroProductScene({ className }: { className?: string }) {
               Store Associate · Floor Task
             </p>
             <p className="text-[9px] text-slate-400 mt-0.5">
-              Aisle B restock completed · Operations Team
+              Store preparation completed · Operations Team
             </p>
           </div>
         </motion.div>
 
-        {/* Subtle Visual Connection Track (Section 9) */}
+        {/* Product Portfolio Showcase Indicator Bar */}
         <div
           className="mt-8 flex items-center justify-between px-3 text-[9px] font-mono tracking-wider uppercase text-slate-400"
           aria-hidden
@@ -744,37 +690,47 @@ export function HeroProductScene({ className }: { className?: string }) {
                 posHighlight ? "bg-brand" : "bg-white/30",
               )}
             />
-            POS (SALE)
+            POS (SALES)
           </span>
-          <span className="flex-1 mx-3 h-px bg-gradient-to-r from-brand/40 via-brand/60 to-brand/40 relative overflow-hidden">
-            {!reduce && currentStep.step >= 2 && currentStep.step <= 4 && (
-              <motion.span
-                key={currentStep.step}
-                className="absolute top-[-2px] h-[5px] w-8 rounded-full bg-brand shadow-[0_0_8px_#5ee0b0]"
-                initial={{ left: "0%", opacity: 0 }}
-                animate={{ left: "100%", opacity: [0, 1, 1, 0] }}
-                transition={{ duration: 1.4, ease: "easeInOut" }}
-              />
-            )}
-          </span>
+          <span className="flex-1 mx-3 h-px bg-white/10" />
           <span className="flex items-center gap-1">
             <span
               className={cn(
                 "h-1.5 w-1.5 rounded-full transition-colors",
-                coreHighlight ? "bg-brand" : "bg-white/30",
+                emsHighlight ? "bg-brand" : "bg-white/30",
               )}
             />
-            SHARED INVENTORY
+            EMS (WORKFORCE)
           </span>
-          <span className="flex-1 mx-3 h-px bg-gradient-to-r from-brand/40 via-brand/60 to-brand/40 relative overflow-hidden" />
+          <span className="flex-1 mx-3 h-px bg-white/10" />
           <span className="flex items-center gap-1">
             <span
               className={cn(
                 "h-1.5 w-1.5 rounded-full transition-colors",
-                fmsHighlight || ecomHighlight ? "bg-brand" : "bg-white/30",
+                fmsHighlight ? "bg-brand" : "bg-white/30",
               )}
             />
-            FMS + COMMERCE
+            FMS (FINANCE)
+          </span>
+          <span className="flex-1 mx-3 h-px bg-white/10" />
+          <span className="flex items-center gap-1">
+            <span
+              className={cn(
+                "h-1.5 w-1.5 rounded-full transition-colors",
+                ecomHighlight ? "bg-brand" : "bg-white/30",
+              )}
+            />
+            E-COMMERCE
+          </span>
+          <span className="flex-1 mx-3 h-px bg-white/10" />
+          <span className="flex items-center gap-1 text-amber/80">
+            <span
+              className={cn(
+                "h-1.5 w-1.5 rounded-full transition-colors",
+                isStep5 && !reduce ? "bg-amber" : "bg-white/20",
+              )}
+            />
+            CRM (SOON)
           </span>
         </div>
       </div>

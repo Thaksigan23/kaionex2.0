@@ -29,14 +29,14 @@ export function CinematicOpening() {
   const screenX = useTransform(progress, [0, .5], ["0%", "-12%"]);
   const lineProgress = useTransform(progress, [.45, 1], [0, 1]);
   const showingPos = cinematic && posActive;
-  return <section ref={ref} className="cine-opening" aria-label="KAIONEX connected platform and POS story">
+  return <section ref={ref} className="cine-opening" aria-label="KAIONEX product family and POS showcase">
     <div className="cine-opening-sticky">
       <div className="cine-opening-inner">
-        <div className="cine-topline"><span>KAIONEX / BUSINESS, CONNECTED.</span><Link href={siteConfig.parent.url} target="_blank" rel="noopener noreferrer">BY TECHLOOM.AI <ArrowUpRight size={12} /></Link></div>
+        <div className="cine-topline"><span>KAIONEX / BUSINESS SOFTWARE SUITE</span><Link href={siteConfig.parent.url} target="_blank" rel="noopener noreferrer">BY TECHLOOM.AI <ArrowUpRight size={12} /></Link></div>
         <motion.div className="cine-hero-copy" style={cinematic ? { opacity: heroOpacity, y: heroY } : undefined} inert={showingPos}>
-          <p className="cine-eyebrow">One ecosystem. Four available products.</p>
-          <h1>One connected<br />platform for<br />your <em>entire</em><br />business.</h1>
-          <p className="cine-intro">Sales. People. Finance. Commerce.<br />A shared operational picture.</p>
+          <p className="cine-eyebrow">One brand. Multiple business products.</p>
+          <h1>One KAIONEX.<br />Multiple ways to<br />run your <em>business.</em></h1>
+          <p className="cine-intro">Sales. People. Finance. Commerce.<br />Purpose-built KAIONEX products for different parts of your business.</p>
           <div className="cine-actions"><Button href="/book-demo" size="lg" withArrow onClick={() => track({ name: "cta_book_demo", props: { location: "hero" } })}>Book a Demo</Button><Button href="/products" size="lg" variant="outline" onClick={() => track({ name: "cta_explore_products", props: { location: "hero" } })}>Explore Products</Button></div>
           <div className="cine-status-treatment" role="region" aria-label="Product availability status">
             <div className="cine-status-group">
@@ -57,9 +57,9 @@ export function CinematicOpening() {
         </motion.div>
         <motion.div className="cine-opening-pos-copy" style={cinematic ? { opacity: posOpacity } : undefined} inert={cinematic && !showingPos}>
           <p className="cine-eyebrow">01 / KAIONEX POS · Available</p>
-          <h2>Sell.<br />Track.<br /><em>Sync.</em></h2>
-          <p className="cine-intro">Start with a sale.<br />Let the rest of your business follow.</p>
-          <p className="cine-chapter-detail">Checkout, payments, receipts, and inventory in one operational flow. Offline-ready POS keeps the counter moving.</p>
+          <h2>Sell.<br />Track.<br /><em>Manage.</em></h2>
+          <p className="cine-intro">Start with a sale.<br />Purpose-built software for your counter.</p>
+          <p className="cine-chapter-detail">Checkout, payments, receipts, and inventory in one focused operational flow. Offline-ready POS keeps the counter moving.</p>
           <Link className="cine-text-link" href="/products/pos">Explore KAIONEX POS <ArrowUpRight size={16} /></Link>
           <span className="cine-event-label">{beat >= 5 ? "Sale completed · Demo transaction" : "A sample sale, taking shape"}</span>
         </motion.div>
@@ -69,12 +69,12 @@ export function CinematicOpening() {
             <HeroProductSceneMobile className="md:hidden" />
           </motion.div>
           <motion.div className="cine-pos-layer" data-product="pos" style={cinematic ? { opacity: posOpacity } : undefined} inert={cinematic && !showingPos}>
-            <div className="cine-product-caption"><span>COUNTER 02 / ILLUSTRATIVE WORKSPACE</span><span>POS → KAIONEX CORE</span></div>
+            <div className="cine-product-caption"><span>COUNTER 02 / ILLUSTRATIVE WORKSPACE</span><span>POS · SALES & RETAIL</span></div>
             <StoryPlaybackContext value={cinematic ? beat : null}><PosDemo /></StoryPlaybackContext>
-            <motion.div className="cine-sale-event" style={cinematic ? { opacity: eventOpacity } : undefined}><span className="cine-event-dot" /><div><span>THE NEXT CHAPTER STARTS HERE</span><strong>Sale completed <b>$40.70</b></strong><small>2 × Coffee Beans + sample tax · Demo transaction</small></div></motion.div>
+            <motion.div className="cine-sale-event" style={cinematic ? { opacity: eventOpacity } : undefined}><span className="cine-event-dot" /><div><span>DEMO WORKFLOW</span><strong>Sale completed <b>$40.70</b></strong><small>2 × Coffee Beans + sample tax · Illustrative checkout</small></div></motion.div>
           </motion.div>
         </motion.div>
-        <div className="cine-opening-footer"><span><ArrowDown size={14} /> Scroll to follow a sale</span><span>01 — 05 / THE CONNECTED BUSINESS</span></div>
+        <div className="cine-opening-footer"><span><ArrowDown size={14} /> Scroll to explore products</span><span>01 — 05 / KAIONEX PRODUCT PORTFOLIO</span></div>
       </div>
       <motion.div className="cine-opening-progress" style={cinematic ? { scaleX: lineProgress } : { scaleX: 1 }} />
     </div>

@@ -7,20 +7,19 @@ import { useScenarioDemoStep } from "@/components/demos/useScenarioDemoStep";
 import { OrderManifest } from "@/components/demos/ProductVisuals";
 import { cn } from "@/lib/utils";
 
-const stages = ["Store", "New order", "Processing", "Inventory", "Finance"] as const;
-const STEP_COUNT = 6;
+const stages = ["Store Catalog", "Order received", "Processing", "Ready", "Fulfilled"] as const;
+const STEP_COUNT = 5;
 
-export function EcommerceDemo({ storyMode = false }: { storyMode?: boolean } = {}) {
+export function EcommerceDemo({}: { storyMode?: boolean } = {}) {
   const { ref, step, reduce, setStep, restart } = useDemoCycle(STEP_COUNT, 2200);
 
   const activeStage = Math.min(step, stages.length - 1);
-  const stock = storyMode ? (step >= 3 ? 39 : 40) : (step >= 3 ? 26 : 27);
-  const itemName = storyMode ? "Organic Coffee Beans" : "Ceramic Mug";
-  const itemVariant = storyMode ? "250g · Medium Roast" : "Ceramic Mug · Sage";
-  const revenueLabel = storyMode ? "+$20.35 revenue" : "+$12.00 revenue";
+  const stock = step >= 3 ? 26 : 27;
+  const itemName = "Ceramic Mug · Sage";
+  const itemVariant = "Standard SKU · Home & Living";
   const orderStatus =
-    step <= 1 ? "New" : step === 2 ? "Processing" : step === 3 ? "Inventory reserved" : step === 4 ? "Ready" : "Fulfilled";
-  const revenueBump = step >= 4;
+    step <= 0 ? "Catalog active" : step === 1 ? "Order received" : step === 2 ? "Processing" : step === 3 ? "Ready" : "Fulfilled";
+  const fulfillmentComplete = step >= 3;
 
   useScenarioDemoStep("ecommerce", (scenarioStep) => {
     if (scenarioStep.event === "online_order_created") setStep(1);
@@ -31,9 +30,9 @@ export function EcommerceDemo({ storyMode = false }: { storyMode?: boolean } = {
   return (
     <div ref={ref}>
       <DemoChrome
-        title="E-Commerce · Online store"
-        subtitle={storyMode ? "Shared warehouse inventory · Fictional demo" : "Sample order flow · fictional data"}
-        footer={storyMode ? "Shared warehouse pool (POS & Web) · FMS revenue bridge" : "E-Commerce ↔ POS inventory · E-Commerce → FMS revenue · Demo UI"}
+        title="E-Commerce · Online Store"
+        subtitle="Sample order workflow · fictional data"
+        footer="Demo UI · illustrative digital commerce workflow"
       >
         <div className="p-3">
           <div className="grid grid-cols-5 gap-1">
@@ -84,67 +83,52 @@ export function EcommerceDemo({ storyMode = false }: { storyMode?: boolean } = {
             <div className="rounded-xl border border-black/5 p-3">
               <div className="flex items-center justify-between">
                 <p className="text-[10px] uppercase tracking-wide text-slate-400">
-                  {storyMode ? "Shared Warehouse Stock" : "Inventory · POS sync"}
+                  Store Catalog Stock
                 </p>
-                {storyMode && (
-                  <span className="text-[9px] font-mono text-brand font-medium">
-                    POS ↔ Web
-                  </span>
-                )}
+                <span className="text-[9px] font-mono text-brand font-medium">
+                  Catalog Active
+                </span>
               </div>
               <p className="mt-1 text-sm font-semibold text-navy-900">
                 {itemVariant}
               </p>
-              {storyMode ? (
-                <div className="mt-1 space-y-0.5 text-xs text-slate-500">
-                  <p>
-                    Central on-hand:{" "}
-                    <span className="font-semibold text-navy-900">
-                      {step >= 5 ? "39 units (fulfilled)" : "40 units"}
+              <div className="mt-1 space-y-0.5 text-xs text-slate-500">
+                <p>
+                  Available stock:{" "}
+                  <span className="font-semibold text-navy-900">
+                    {stock} units
+                  </span>
+                  {step >= 2 && step < 4 && (
+                    <span className="ml-1 text-[10px] text-amber-600 font-medium">
+                      (1 in fulfillment)
                     </span>
-                  </p>
-                  <p className="text-[11px]">
-                    Available to sell:{" "}
-                    <span className="font-semibold text-brand">
-                      {step >= 3 ? "39 units" : "40 units"}
-                    </span>
-                    {step >= 3 && step < 5 && (
-                      <span className="ml-1 text-[10px] text-amber-600 font-medium">
-                        (1 reserved)
-                      </span>
-                    )}
-                  </p>
-                </div>
-              ) : (
-                <motion.p
-                  key={stock}
-                  initial={reduce ? false : { scale: 1.06 }}
-                  animate={{ scale: 1 }}
-                  className="mt-1 text-xs text-slate-500"
-                >
-                  Qty on hand:{" "}
-                  <span className="font-semibold text-navy-900">{stock}</span>
-                </motion.p>
-              )}
+                  )}
+                </p>
+                <p className="text-[11px] text-slate-400">
+                  Item SKU: CM-SAGE-01
+                </p>
+              </div>
             </div>
           </div>
 
           <OrderManifest />
           <AnimatePresence>
-            {revenueBump ? (
+            {fulfillmentComplete ? (
               <motion.div
                 initial={reduce ? false : { opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="mt-2 flex items-center justify-between rounded-xl bg-brand/10 px-3 py-2 text-sm"
               >
-                <span className="text-navy-900">Posted to FMS</span>
-                <span className="font-semibold text-brand">{revenueLabel}</span>
+                <span className="text-navy-900">Fulfillment Status</span>
+                <span className="font-semibold text-brand">
+                  {step >= 4 ? "Order Fulfilled" : "Ready for Dispatch"}
+                </span>
               </motion.div>
             ) : null}
           </AnimatePresence>
           <div className="mt-2 flex justify-end">
             <button type="button" onClick={() => (step >= STEP_COUNT - 1 ? restart() : setStep((current) => Math.min(current + 1, STEP_COUNT - 1)))} className="rounded-md border border-brand/25 bg-brand/5 px-2 py-1 text-[10px] font-semibold text-brand transition hover:bg-brand/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand">
-              {step >= STEP_COUNT - 1 ? "Replay order" : "Advance demo order"}
+              {step >= STEP_COUNT - 1 ? "Replay order demo" : "Advance order demo"}
             </button>
           </div>
         </div>

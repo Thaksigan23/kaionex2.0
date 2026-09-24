@@ -84,7 +84,7 @@ export function DashboardPreview() {
           <SectionHeading
             eyebrow="Product UI"
             title="Built for the way modern businesses work."
-            description="Illustrative KAIONEX workspace previews — finance, inventory, sales, employees, and analytics connected in one place. Numbers shown are demo UI samples, not customer statistics."
+            description="Illustrative workspace previews across KAIONEX finance, inventory, sales, employee, and analytics interfaces. Numbers shown are demo UI samples, not customer statistics."
             align="center"
             className="mb-7"
           />
