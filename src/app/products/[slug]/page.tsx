@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Check } from "lucide-react";
-import { getProduct, products } from "@/content/products";
+import { getProduct, products, type Product as ContentProduct, type ProductId } from "@/content/products";
+import { getPublishedProductBySlug, getProductFeatures, getPublishedProducts } from "@/lib/data/products";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -11,6 +12,8 @@ import { ProductDemoById } from "@/components/demos/ProductDemoById";
 import { AnalyticsBeacon } from "@/components/analytics/AnalyticsBeacon";
 import { siteConfig } from "@/lib/site";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/metadata";
+
+export const revalidate = 60;
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -22,26 +25,50 @@ const slugToId = {
   crm: "crm",
 } as const;
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  try {
+    const dbProducts = await getPublishedProducts();
+    if (dbProducts && dbProducts.length > 0) {
+      return dbProducts.map((p) => ({ slug: p.slug }));
+    }
+  } catch {
+    // Fallback to static IDs
+  }
   return Object.keys(slugToId).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const id = slugToId[slug as keyof typeof slugToId];
-  const product = id ? getProduct(id) : undefined;
-  if (!product) return {};
-  const titles = {
+  const fallback = id ? getProduct(id) : undefined;
+
+  let dbProduct = null;
+  try {
+    dbProduct = await getPublishedProductBySlug(slug);
+  } catch {
+    // Ignore error
+  }
+
+  if (!dbProduct && !fallback) return {};
+
+  const name = dbProduct?.name ?? fallback?.name ?? "";
+  const summary = dbProduct?.summary ?? fallback?.summary ?? "";
+  const href = `/products/${slug}`;
+
+  const titles: Record<string, string> = {
     pos: "KAIONEX POS — Point of Sale",
     ems: "KAIONEX EMS — Employee & Work Management",
     fms: "KAIONEX FMS — Financial Management",
     ecommerce: "E-Commerce — Connected Online Commerce | KAIONEX",
     crm: "KAIONEX CRM — Customer Management | Coming Soon",
-  } as const;
+  };
+
+  const title = titles[slug] || `${name} | KAIONEX`;
+
   return pageMetadata({
-    title: titles[product.id],
-    description: product.summary,
-    path: product.href,
+    title,
+    description: summary,
+    path: href,
     absoluteTitle: true,
   });
 }
@@ -49,8 +76,46 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProductDetailPage({ params }: Props) {
   const { slug } = await params;
   const id = slugToId[slug as keyof typeof slugToId];
-  const product = id ? getProduct(id) : undefined;
-  if (!product) notFound();
+  const fallback = id ? getProduct(id) : undefined;
+
+  let dbProduct = null;
+  let dbFeatures: string[] = [];
+
+  try {
+    dbProduct = await getPublishedProductBySlug(slug);
+    if (dbProduct) {
+      const features = await getProductFeatures(dbProduct.id);
+      dbFeatures = features.map((f) => f.feature);
+    }
+  } catch {
+    // Database read fallback
+  }
+
+  if (!dbProduct && !fallback) {
+    notFound();
+  }
+
+  // Compose product object from database with fallback values
+  const product: ContentProduct = {
+    id: (id || slug) as ProductId,
+    name: dbProduct?.name ?? (slug === "ecommerce" ? "E-Commerce" : (fallback?.name ?? "")),
+    shortName: dbProduct?.short_name ?? fallback?.shortName ?? "",
+    href: `/products/${slug}`,
+    status: (dbProduct ? (dbProduct.status === "available" ? "available" : "coming-soon") : (fallback?.status ?? "available")),
+    statusLabel: dbProduct ? (dbProduct.status === "available" ? "Available" : "Coming Soon") : (fallback?.statusLabel ?? "Available"),
+    tagline: dbProduct?.tagline ?? fallback?.tagline ?? "",
+    summary: dbProduct?.summary ?? fallback?.summary ?? "",
+    headline: dbProduct?.headline ?? fallback?.headline ?? "",
+    description: dbProduct?.description ?? fallback?.description ?? "",
+    accent: dbProduct?.accent ?? fallback?.accent ?? slug,
+    features: dbFeatures.length > 0 ? dbFeatures : (fallback?.features ?? []),
+    benefits: dbProduct?.benefits ?? fallback?.benefits ?? [],
+    audience: dbProduct?.audience ?? fallback?.audience ?? "",
+    connection: dbProduct?.connection ?? fallback?.connection ?? "",
+    ctaLabel: dbProduct?.cta_label ?? fallback?.ctaLabel ?? "Learn More",
+    ctaHref: dbProduct?.cta_href ?? fallback?.ctaHref ?? `/products/${slug}`,
+    brandingNote: fallback?.brandingNote,
+  };
 
   const softwareJsonLd = {
     "@context": "https://schema.org",
@@ -143,7 +208,7 @@ export default async function ProductDetailPage({ params }: Props) {
               <p className="mt-2 text-sm text-slate-600">{product.audience}</p>
             </div>
             <div className="rounded-2xl border border-black/5 bg-navy-900 p-6 text-white">
-              <h3 className="font-semibold">Ecosystem connection</h3>
+              <h3 className="font-semibold">Position in KAIONEX</h3>
               <p className="mt-2 text-sm text-white/70">{product.connection}</p>
             </div>
           </div>

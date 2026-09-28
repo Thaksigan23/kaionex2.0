@@ -23,10 +23,11 @@ import "server-only";
  * calling createAdminClient().
  */
 
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { getSupabaseUrl, getSupabaseSecretKey } from "@/lib/env";
 
-let _adminClient: ReturnType<typeof createClient> | null = null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let _adminClient: SupabaseClient<any> | null = null;
 
 /**
  * Returns a singleton Supabase admin client using the secret key.

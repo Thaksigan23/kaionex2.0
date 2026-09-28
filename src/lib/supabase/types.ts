@@ -48,6 +48,15 @@ export interface Product {
   short_name: string; // e.g. "POS"
   tagline: string | null;
   description: string | null;
+  summary: string | null;
+  headline: string | null;
+  accent: string | null;
+  benefits: string[] | null;
+  audience: string | null;
+  /** Role in the KAIONEX product family (describes positioning; never implies technical integration or data sync). */
+  connection: string | null;
+  cta_label: string | null;
+  cta_href: string | null;
   status: ProductStatus;
   sort_order: number;
   is_published: boolean;
@@ -187,3 +196,78 @@ export type CmsTableName =
   | "resources"
   | "leads"
   | "site_settings";
+
+export interface Database {
+  public: {
+    Tables: {
+      admin_profiles: {
+        Row: AdminProfile;
+        Insert: Partial<AdminProfile> & { id: string; role: AdminRole };
+        Update: Partial<AdminProfile>;
+      };
+      products: {
+        Row: Product;
+        Insert: Partial<Product> & { slug: string; name: string; short_name: string };
+        Update: Partial<Product>;
+      };
+      product_features: {
+        Row: ProductFeature;
+        Insert: Partial<ProductFeature> & { product_id: string; feature: string };
+        Update: Partial<ProductFeature>;
+      };
+      product_media: {
+        Row: ProductMedia;
+        Insert: Partial<ProductMedia> & { product_id: string; storage_path: string; media_type: string };
+        Update: Partial<ProductMedia>;
+      };
+      pricing_plans: {
+        Row: PricingPlan;
+        Insert: Partial<PricingPlan> & { product_id: string; name: string };
+        Update: Partial<PricingPlan>;
+      };
+      pricing_features: {
+        Row: PricingFeature;
+        Insert: Partial<PricingFeature> & { plan_id: string; feature: string };
+        Update: Partial<PricingFeature>;
+      };
+      industries: {
+        Row: Industry;
+        Insert: Partial<Industry> & { slug: string; name: string };
+        Update: Partial<Industry>;
+      };
+      solutions: {
+        Row: Solution;
+        Insert: Partial<Solution> & { slug: string; title: string };
+        Update: Partial<Solution>;
+      };
+      faqs: {
+        Row: Faq;
+        Insert: Partial<Faq> & { question: string; answer: string };
+        Update: Partial<Faq>;
+      };
+      resources: {
+        Row: Resource;
+        Insert: Partial<Resource> & { slug: string; title: string; type: ResourceType };
+        Update: Partial<Resource>;
+      };
+      leads: {
+        Row: Lead;
+        Insert: Partial<Lead> & { source: string };
+        Update: Partial<Lead>;
+      };
+      site_settings: {
+        Row: SiteSetting;
+        Insert: Partial<SiteSetting> & { key: string; value: string };
+        Update: Partial<SiteSetting>;
+      };
+      cms_audit_log: {
+        Row: CmsAuditLog;
+        Insert: Partial<CmsAuditLog> & { admin_id: string; action: AuditAction; table_name: string };
+        Update: Partial<CmsAuditLog>;
+      };
+    };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
+  };
+}
+

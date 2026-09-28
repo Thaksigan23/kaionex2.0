@@ -12,7 +12,7 @@ import "server-only";
 
 import { createServerClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import type { Product, ProductFeature } from "@/lib/supabase/types";
+import type { Product, ProductFeature, ProductMedia } from "@/lib/supabase/types";
 
 // ─── Public reads ─────────────────────────────────────────────────────────────
 
@@ -87,4 +87,49 @@ export async function adminGetProduct(id: string): Promise<Product | null> {
   if (error?.code === "PGRST116") return null;
   if (error) throw new Error(`[products admin] ${error.message}`);
   return data as Product | null;
+}
+
+/** Admin: fetch all features for a product. */
+export async function adminGetProductFeatures(
+  productId: string
+): Promise<ProductFeature[]> {
+  const admin = createAdminClient();
+  const { data, error } = await admin
+    .from("product_features")
+    .select("*")
+    .eq("product_id", productId)
+    .order("sort_order");
+
+  if (error) throw new Error(`[product_features admin] ${error.message}`);
+  return (data ?? []) as ProductFeature[];
+}
+
+/** Fetch public media for a product. */
+export async function getProductMedia(
+  productId: string
+): Promise<ProductMedia[]> {
+  const supabase = await createServerClient();
+  const { data, error } = await supabase
+    .from("product_media")
+    .select("*")
+    .eq("product_id", productId)
+    .order("sort_order");
+
+  if (error) throw new Error(`[product_media] ${error.message}`);
+  return (data ?? []) as ProductMedia[];
+}
+
+/** Admin: fetch all media for a product. */
+export async function adminGetProductMedia(
+  productId: string
+): Promise<ProductMedia[]> {
+  const admin = createAdminClient();
+  const { data, error } = await admin
+    .from("product_media")
+    .select("*")
+    .eq("product_id", productId)
+    .order("sort_order");
+
+  if (error) throw new Error(`[product_media admin] ${error.message}`);
+  return (data ?? []) as ProductMedia[];
 }

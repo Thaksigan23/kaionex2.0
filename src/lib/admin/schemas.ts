@@ -20,13 +20,39 @@ export const ProductSchema = z.object({
   name: z.string().min(1).max(128),
   short_name: z.string().min(1).max(32),
   tagline: z.string().max(256).optional().nullable(),
-  description: z.string().max(2000).optional().nullable(),
+  description: z.string().max(3000).optional().nullable(),
+  summary: z.string().max(2000).optional().nullable(),
+  headline: z.string().max(256).optional().nullable(),
+  accent: z.string().max(64).optional().nullable(),
+  benefits: z.array(z.string()).optional().nullable(),
+  audience: z.string().max(1000).optional().nullable(),
+  connection: z.string().max(1000).optional().nullable(),
+  cta_label: z.string().max(64).optional().nullable(),
+  cta_href: z.string().max(256).optional().nullable(),
   status: z.enum(["available", "coming_soon"]),
   sort_order: z.number().int().min(0),
   is_published: z.boolean(),
 });
 
 export type ProductInput = z.infer<typeof ProductSchema>;
+
+export const ProductFeatureSchema = z.object({
+  product_id: z.string().uuid(),
+  feature: z.string().min(1).max(256),
+  sort_order: z.number().int().min(0).default(0),
+});
+
+export type ProductFeatureInput = z.infer<typeof ProductFeatureSchema>;
+
+export const ProductMediaSchema = z.object({
+  product_id: z.string().uuid(),
+  storage_path: z.string().min(1).max(512),
+  alt_text: z.string().max(256).optional().nullable(),
+  media_type: z.string().min(1).max(64).default("image/png"),
+  sort_order: z.number().int().min(0).default(0),
+});
+
+export type ProductMediaInput = z.infer<typeof ProductMediaSchema>;
 
 // ─── Pricing plans ────────────────────────────────────────────────────────────
 

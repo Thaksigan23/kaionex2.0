@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { products } from "@/content/products";
+import { products as fallbackProducts } from "@/content/products";
+import { getPublishedProducts } from "@/lib/data/products";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -8,13 +9,50 @@ import { Badge } from "@/components/ui/Badge";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 import { pageMetadata } from "@/lib/metadata";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = pageMetadata({
   title: "Products",
   description: "Explore available KAIONEX POS, EMS, FMS, and E-Commerce products. KAIONEX CRM is under development and coming soon.",
   path: "/products",
 });
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  let displayProducts: {
+    id: string;
+    slug: string;
+    name: string;
+    href: string;
+    status: "available" | "coming-soon" | "early-access";
+    statusLabel: string;
+    summary: string;
+  }[] = fallbackProducts.map((p) => ({
+    id: p.id,
+    slug: p.id,
+    name: p.id === "ecommerce" ? "E-Commerce" : p.name,
+    href: p.href,
+    status: p.status,
+    statusLabel: p.statusLabel,
+    summary: p.summary,
+  }));
+
+  try {
+    const dbProducts = await getPublishedProducts();
+    if (dbProducts && dbProducts.length > 0) {
+      displayProducts = dbProducts.map((p) => ({
+        id: p.slug,
+        slug: p.slug,
+        name: p.name,
+        href: `/products/${p.slug}`,
+        status: p.status === "available" ? ("available" as const) : ("coming-soon" as const),
+        statusLabel: p.status === "available" ? "Available" : "Coming Soon",
+        summary: p.summary ?? "",
+      }));
+    }
+  } catch {
+    // Graceful fallback to approved static content if database is unreachable
+  }
+
   return (
     <>
       <PageHero
@@ -40,9 +78,9 @@ export default function ProductsPage() {
             <p className="mt-3 text-xs text-white/60">Purpose-built software under one brand. Products operate independently with dedicated tools for each business area.</p>
           </div>
           <div className="divide-y divide-black/10 border-y border-black/10">
-          {products.map((product, index) => (
+          {displayProducts.map((product, index) => (
             <Link
-              key={product.id}
+              key={product.slug}
               href={product.href}
               className={`group grid gap-3 px-1 py-6 transition hover:bg-paper sm:grid-cols-[3rem_1fr_auto] sm:items-center sm:gap-5 sm:px-5 ${product.status === "coming-soon" ? "bg-amber/5" : ""}`}
             >
