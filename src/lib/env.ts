@@ -73,6 +73,32 @@ export function getAnalyticsProvider(): string | undefined {
   return readPublic("NEXT_PUBLIC_ANALYTICS_PROVIDER");
 }
 
+/** Supabase project URL (public). */
+export function getSupabaseUrl(): string | undefined {
+  return readPublic("NEXT_PUBLIC_SUPABASE_URL");
+}
+
+/** Supabase publishable API key (public / safe for browser). */
+export function getSupabasePublishableKey(): string | undefined {
+  return readPublic("NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY");
+}
+
+/** Check if public Supabase environment variables are configured. */
+export function isSupabaseConfigured(): boolean {
+  return Boolean(getSupabaseUrl() && getSupabasePublishableKey());
+}
+
+/** Server-only: Supabase secret API key. Never expose to client. */
+export function getSupabaseSecretKey(): string | undefined {
+  const value = process.env.SUPABASE_SECRET_KEY?.trim();
+  return value || undefined;
+}
+
+/** Check if full admin Supabase access (including secret key) is configured. */
+export function isSupabaseAdminConfigured(): boolean {
+  return Boolean(isSupabaseConfigured() && getSupabaseSecretKey());
+}
+
 export const envDefaults = {
   siteUrl: DEFAULT_SITE_URL,
 } as const;
