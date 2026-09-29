@@ -1,17 +1,27 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Check } from "lucide-react";
-import { getProduct, products, type Product as ContentProduct, type ProductId } from "@/content/products";
-import { getPublishedProductBySlug, getProductFeatures, getPublishedProducts } from "@/lib/data/products";
+import { getProduct, type Product as ContentProduct, type ProductId } from "@/content/products";
+import {
+  getPublishedProductBySlug,
+  getProductFeatures,
+  getProductMedia,
+  getPublishedProducts,
+} from "@/lib/data/products";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
 import { FinalCTA } from "@/components/sections/FinalCTA";
-import { ProductActionButtons } from "@/components/products/ProductActionButtons";
-import { ProductDemoById } from "@/components/demos/ProductDemoById";
 import { AnalyticsBeacon } from "@/components/analytics/AnalyticsBeacon";
+import { ProductPageHero } from "@/components/products/ProductPageHero";
+import { ProductPositioningBanner } from "@/components/products/ProductPositioningBanner";
+import { ProductVisualMoment } from "@/components/products/ProductVisualMoment";
+import { ProductWorkflowShowcase } from "@/components/products/ProductWorkflowShowcase";
+import { ProductCapabilitiesGrid } from "@/components/products/ProductCapabilitiesGrid";
+import { ProductBenefitsAudience } from "@/components/products/ProductBenefitsAudience";
+import { ProductMediaGallery } from "@/components/products/ProductMediaGallery";
+import { ProductRelatedNav } from "@/components/products/ProductRelatedNav";
 import { siteConfig } from "@/lib/site";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/metadata";
+import type { ProductMedia } from "@/lib/supabase/types";
 
 export const revalidate = 60;
 
@@ -80,12 +90,17 @@ export default async function ProductDetailPage({ params }: Props) {
 
   let dbProduct = null;
   let dbFeatures: string[] = [];
+  let dbMedia: ProductMedia[] = [];
 
   try {
     dbProduct = await getPublishedProductBySlug(slug);
     if (dbProduct) {
-      const features = await getProductFeatures(dbProduct.id);
+      const [features, media] = await Promise.all([
+        getProductFeatures(dbProduct.id),
+        getProductMedia(dbProduct.id).catch(() => []),
+      ]);
       dbFeatures = features.map((f) => f.feature);
+      dbMedia = media || [];
     }
   } catch {
     // Database read fallback
@@ -150,94 +165,64 @@ export default async function ProductDetailPage({ params }: Props) {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
-          { name: "Home", path: "/" },
-          { name: "Products", path: "/products" },
-          { name: product.name, path: product.href },
-        ])) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", path: "/" },
+              { name: "Products", path: "/products" },
+              { name: product.name, path: product.href },
+            ]),
+          ),
+        }}
       />
-      <section className="gradient-hero overflow-hidden py-14 text-white lg:py-20">
-        <Container wide className="grid items-center gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:gap-12">
-          <div className="min-w-0">
-            <Badge tone={product.status === "available" ? "soft" : "warning"}>
-              {product.statusLabel}
-            </Badge>
-            <p className="mt-5 text-xs font-semibold uppercase tracking-[0.18em] text-brand-soft">
-              {product.name}
-            </p>
-            <h1 className="mt-3 max-w-xl font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
-              {product.headline.replace("\n", " ")}
-            </h1>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-white/75">
-              {product.description}
-            </p>
-            <div className="mt-7"><ProductActionButtons product={product} /></div>
-          </div>
-          <div className="min-w-0 rounded-2xl border border-white/10 bg-white/[0.04] p-2 shadow-kx-md sm:p-3">
-            <ProductDemoById id={product.id} />
-          </div>
-        </Container>
-      </section>
 
-      <section className="bg-white py-14 lg:py-20">
-        <Container wide className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
-          <div>
-            <h2 className="font-display text-2xl font-semibold text-navy-900">
-              {product.status === "available" ? "Key capabilities" : "Planned direction"}
+      {/* 1. Cinematic Product Hero */}
+      <ProductPageHero product={product} media={dbMedia} />
+
+      {/* 2. Position in KAIONEX Banner */}
+      <ProductPositioningBanner product={product} />
+
+      {/* 3. Expansive Workstation Spotlight / Hardware & Software Deep Dive */}
+      <ProductVisualMoment productId={product.id} />
+
+      {/* 4. Asymmetric Capabilities & Feature Spotlight */}
+      <ProductCapabilitiesGrid product={product} features={product.features} />
+
+      {/* 5. Interactive Workflow Showcase */}
+      <ProductWorkflowShowcase productId={product.id} />
+
+      {/* 6. Target Audience & Business Value Split */}
+      <ProductBenefitsAudience product={product} />
+
+      {/* 6. Product Media Gallery (CMS Media or Architecture Layout) */}
+      <ProductMediaGallery product={product} media={dbMedia} />
+
+      {/* 7. Related Sister Products Navigation */}
+      <ProductRelatedNav currentId={product.id} />
+
+      {/* 8. Contextual CTA */}
+      {product.status === "available" ? (
+        <FinalCTA />
+      ) : (
+        <section className="relative overflow-hidden bg-navy-950 py-20 text-white">
+          <div className="pointer-events-none absolute inset-0 z-0">
+            <div className="absolute top-1/2 left-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-500/10 blur-3xl" />
+          </div>
+          <Container wide className="relative z-10 text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-amber/30 bg-amber/10 px-3 py-1 text-[11px] font-mono font-semibold text-amber uppercase">
+              Under Development
+            </span>
+            <h2 className="mt-4 font-display text-3xl font-semibold sm:text-4xl">
+              Follow KAIONEX CRM Progress
             </h2>
-            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-              {product.features.map((feature) => (
-                <li key={feature} className="flex items-start gap-2 text-sm text-slate-700">
-                  <Check className="mt-0.5 size-4 shrink-0 text-brand" />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="space-y-4">
-            <div className="rounded-2xl border border-black/5 bg-paper p-6">
-              <h3 className="font-semibold text-navy-900">{product.status === "available" ? "What it helps with" : "Intended value"}</h3>
-              <ul className="mt-3 space-y-2 text-sm text-slate-600">
-                {product.benefits.map((benefit) => (
-                  <li key={benefit}>• {benefit}</li>
-                ))}
-              </ul>
+            <p className="mx-auto mt-4 max-w-xl text-base text-white/70">
+              CRM is being developed as a future customer management layer for the KAIONEX product family. Register your interest for development updates.
+            </p>
+            <div className="mt-8 flex justify-center gap-3">
+              <Button href="/contact?interest=crm" size="lg" withArrow>
+                Register Interest
+              </Button>
             </div>
-            <div className="rounded-2xl border border-black/5 bg-paper p-6">
-              <h3 className="font-semibold text-navy-900">Who it&apos;s for</h3>
-              <p className="mt-2 text-sm text-slate-600">{product.audience}</p>
-            </div>
-            <div className="rounded-2xl border border-black/5 bg-navy-900 p-6 text-white">
-              <h3 className="font-semibold">Position in KAIONEX</h3>
-              <p className="mt-2 text-sm text-white/70">{product.connection}</p>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="border-t border-black/5 bg-paper py-12">
-        <Container wide>
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">
-            Related products
-          </p>
-          <div className="mt-4 flex flex-wrap gap-3">
-            {products
-              .filter((item) => item.id !== product.id)
-              .map((item) => (
-                <Button key={item.id} href={item.href} variant="light" size="sm">
-                  {item.shortName}{item.status === "coming-soon" ? " · Coming Soon" : ""}
-                </Button>
-              ))}
-          </div>
-        </Container>
-      </section>
-      {product.status === "available" ? <FinalCTA /> : (
-        <section className="bg-navy-950 py-16 text-white">
-          <Container wide>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-amber">Under development</p>
-            <h2 className="mt-3 font-display text-3xl font-semibold">Follow KAIONEX CRM progress.</h2>
-            <p className="mt-3 max-w-xl text-white/70">CRM is being developed as a future customer management layer. Contact our team to request updates.</p>
-            <div className="mt-6"><Button href="/contact?interest=crm" withArrow>Get Updates</Button></div>
           </Container>
         </section>
       )}

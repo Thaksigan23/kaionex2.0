@@ -23,7 +23,7 @@ export function PricingSection({ compact = false }: { compact?: boolean }) {
   const plans = useMemo(() => pricingPlans, []);
 
   return (
-    <section className={cn("bg-white py-14 sm:py-16 lg:py-20", compact && "py-11 lg:py-14")}>
+    <section className={cn("cine-pricing bg-white py-14 sm:py-16 lg:py-20", compact && "py-11 lg:py-14")}>
       <Container wide>
         <Reveal>
           <SectionHeading

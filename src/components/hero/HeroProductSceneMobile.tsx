@@ -1,137 +1,191 @@
 "use client";
 
-import { motion } from "framer-motion";
-import {
-  MonitorSmartphone,
-  UsersRound,
-  CircleDollarSign,
-  ShoppingBag,
-  Layers3,
-  RotateCcw,
-} from "lucide-react";
-import { useHeroWorkflow } from "./HeroProductScene";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { CheckCircle2, ChevronRight, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { SHOWCASE_PRODUCTS } from "./HeroProductScene";
+import { useHydratedReducedMotion } from "@/components/ui/useHydratedReducedMotion";
 import { cn } from "@/lib/utils";
 
-const mobileModules = [
-  { name: "POS", icon: MonitorSmartphone },
-  { name: "EMS", icon: UsersRound },
-  { name: "FMS", icon: CircleDollarSign },
-  { name: "E-Commerce", icon: ShoppingBag },
-] as const;
-
 export function HeroProductSceneMobile({ className }: { className?: string }) {
-  const { currentStep, reduce, replay } = useHeroWorkflow();
+  const [activeIdx, setActiveIdx] = useState(0);
+  const reduce = useHydratedReducedMotion();
+  const current = SHOWCASE_PRODUCTS[activeIdx];
+  const Icon = current.icon;
 
   return (
     <div
       className={cn(
-        "w-full rounded-xl border border-white/12 bg-navy-950/95 overflow-hidden shadow-[0_16px_36px_rgba(7,17,31,0.5)] select-none",
+        "w-full rounded-2xl border border-white/12 bg-navy-950/95 overflow-hidden shadow-[0_16px_36px_rgba(7,17,31,0.5)] select-none",
         className,
       )}
       aria-label="KAIONEX mobile product preview"
     >
-      {/* Top Chrome */}
-      <div className="flex items-center justify-between border-b border-white/[0.08] bg-white/[0.03] px-3.5 py-2.5">
+      {/* Top Chrome Header */}
+      <div className="flex items-center justify-between border-b border-white/[0.08] bg-white/[0.025] px-3.5 py-2.5">
         <div className="flex items-center gap-2">
-          <span className="flex h-5 w-5 items-center justify-center rounded bg-brand/15 text-brand">
-            <Layers3 size={13} />
+          <span className="flex size-5 items-center justify-center rounded bg-brand/15 text-brand">
+            <Icon size={12} />
           </span>
-          <span className="text-xs font-semibold text-white">KAIONEX</span>
-          <span className="text-[10px] text-slate-400">/ Product Suite</span>
+          <span className="text-xs font-semibold text-white font-mono">{current.name}</span>
         </div>
-        <span className="rounded border border-white/10 bg-white/5 px-2 py-0.5 text-[8px] font-semibold text-slate-400">
-          DEMO
+        <span
+          className={cn(
+            "rounded px-2 py-0.5 text-[9px] font-semibold font-mono uppercase",
+            current.isAvailable
+              ? "bg-brand/10 text-brand border border-brand/20"
+              : "bg-amber/10 text-amber border border-amber/20",
+          )}
+        >
+          {current.badge}
         </span>
       </div>
 
-      {/* Modules Strip */}
-      <div className="grid grid-cols-4 gap-1 border-b border-white/[0.06] bg-white/[0.015] p-2 text-center">
-        {mobileModules.map(({ name, icon: Icon }) => {
-          const isActive =
-            currentStep.source.toLowerCase() === name.toLowerCase();
+      {/* Product Switcher Pills */}
+      <div className="grid grid-cols-5 gap-1 border-b border-white/[0.06] bg-white/[0.015] p-1.5 text-center">
+        {SHOWCASE_PRODUCTS.map((prod, idx) => {
+          const isActive = activeIdx === idx;
           return (
-            <div
-              key={name}
+            <button
+              key={prod.id}
+              type="button"
+              onClick={() => setActiveIdx(idx)}
               className={cn(
-                "flex flex-col items-center gap-1 rounded-lg py-1.5 px-1 transition-colors",
+                "rounded-lg py-1 px-1 font-mono text-[10px] transition-colors",
                 isActive
-                  ? "bg-brand/15 text-brand ring-1 ring-brand/30"
-                  : "text-slate-400",
+                  ? prod.id === "crm"
+                    ? "bg-amber/20 text-amber font-semibold ring-1 ring-amber/40"
+                    : "bg-brand/20 text-brand font-semibold ring-1 ring-brand/40"
+                  : "text-slate-400 hover:text-white",
               )}
             >
-              <Icon size={14} />
-              <span className="text-[9px] font-medium leading-tight">
-                {name}
-              </span>
-            </div>
+              {prod.shortName}
+            </button>
           );
         })}
       </div>
 
-      {/* Independent Product Stats */}
-      <div className="grid grid-cols-3 gap-2 p-3">
-        <div className="rounded-lg border border-white/[0.07] bg-white/[0.02] p-2">
-          <span className="text-[8px] uppercase tracking-wide text-slate-400">
-            POS Sales
-          </span>
-          <p className="mt-0.5 text-xs font-semibold text-white">
-            $4,240.70
-          </p>
-        </div>
-        <div className="rounded-lg border border-white/[0.07] bg-white/[0.02] p-2">
-          <span className="text-[8px] uppercase tracking-wide text-slate-400">
-            Workforce
-          </span>
-          <p className="mt-0.5 text-xs font-semibold text-white">
-            24 active
-          </p>
-        </div>
-        <div className="rounded-lg border border-white/[0.07] bg-white/[0.02] p-2">
-          <span className="text-[8px] uppercase tracking-wide text-slate-400">
-            FMS Revenue
-          </span>
-          <p className="mt-0.5 text-xs font-semibold text-white">
-            $48,200.00
-          </p>
-        </div>
-      </div>
-
-      {/* Active Event Card */}
-      <div className="px-3 pb-3">
+      {/* Product Advertisement Body */}
+      <AnimatePresence mode="wait">
         <motion.div
-          key={currentStep.step}
-          initial={reduce ? false : { opacity: 0.7, y: 4 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex items-start gap-2.5 rounded-lg border border-brand/30 bg-brand/[0.06] p-2.5"
+          key={current.id}
+          initial={reduce ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={reduce ? undefined : { opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="p-3.5"
         >
-          <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-brand" />
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center justify-between gap-1">
-              <span className="text-[10px] font-semibold text-white">
-                {currentStep.source} · {currentStep.badge}
-              </span>
-              <span className="text-[8px] font-mono text-brand">
-                Step 0{currentStep.step} / 06
-              </span>
+          {current.id === "pos" && (
+            <div className="space-y-2.5">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-medium text-white">Lane 02 · Checkout</span>
+                <span className="font-mono text-[10px] text-brand">Offline-Ready</span>
+              </div>
+              <div className="rounded-lg bg-white/[0.025] border border-white/[0.06] p-2.5 text-xs flex justify-between">
+                <span>Organic Reserve Roast (1kg)</span>
+                <span className="font-mono text-white">$37.00</span>
+              </div>
+              <div className="rounded-lg border border-white/10 bg-navy-900/80 p-3 flex justify-between items-center text-xs">
+                <div>
+                  <span className="text-[10px] text-slate-400">TOTAL DUE</span>
+                  <p className="font-mono text-lg font-bold text-white">$61.05</p>
+                </div>
+                <div className="rounded bg-brand px-3 py-1.5 text-[11px] font-semibold text-navy-950">
+                  Complete Sale
+                </div>
+              </div>
             </div>
-            <p className="mt-0.5 text-[10px] text-slate-300 truncate">
-              {currentStep.description}
-            </p>
+          )}
+
+          {current.id === "ems" && (
+            <div className="space-y-2.5">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-medium text-white">Downtown Store</span>
+                <span className="font-mono text-[10px] text-brand">24 on shift</span>
+              </div>
+              <div className="rounded-lg bg-white/[0.025] border border-white/[0.06] p-2.5 text-xs flex justify-between">
+                <span>Sarah Jenkins · Lead</span>
+                <span className="font-mono text-[10px] text-brand">07:54 AM</span>
+              </div>
+              <div className="rounded-lg border border-white/10 bg-navy-900/80 p-2.5 text-xs flex justify-between items-center">
+                <span className="text-slate-300">Daily Tasks</span>
+                <span className="font-mono text-brand font-semibold">18 / 22 Done</span>
+              </div>
+            </div>
+          )}
+
+          {current.id === "fms" && (
+            <div className="space-y-2.5">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-medium text-white">Operating Ledger</span>
+                <span className="font-mono text-[10px] text-brand">Balanced</span>
+              </div>
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                <div className="rounded-lg bg-white/[0.025] border border-white/[0.06] p-2">
+                  <span className="text-[10px] text-slate-400">Collections</span>
+                  <p className="font-mono font-semibold text-white mt-0.5">$128,450</p>
+                </div>
+                <div className="rounded-lg bg-white/[0.025] border border-white/[0.06] p-2">
+                  <span className="text-[10px] text-slate-400">Net Position</span>
+                  <p className="font-mono font-semibold text-brand mt-0.5">+$86,270</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {current.id === "ecommerce" && (
+            <div className="space-y-2.5">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-medium text-white">Storefront Queue</span>
+                <span className="font-mono text-[10px] text-brand">48 Orders</span>
+              </div>
+              <div className="rounded-lg bg-white/[0.025] border border-white/[0.06] p-2.5 text-xs flex justify-between">
+                <span>Demo Order #9104</span>
+                <span className="font-mono text-brand font-semibold">$70.00</span>
+              </div>
+              <div className="rounded-lg border border-white/10 bg-navy-900/80 p-2.5 text-xs flex justify-between items-center">
+                <span className="text-slate-300">Dispatch Status</span>
+                <span className="font-mono text-brand text-[10px]">AWB Ready</span>
+              </div>
+            </div>
+          )}
+
+          {current.id === "crm" && (
+            <div className="rounded-lg border border-dashed border-amber-500/30 bg-amber-500/[0.03] p-3 text-center text-xs">
+              <span className="rounded bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 text-[10px] text-amber font-mono">
+                Coming Soon
+              </span>
+              <p className="mt-2 text-slate-300 text-[11px]">
+                Customer relationship & pipeline tool in development.
+              </p>
+            </div>
+          )}
+
+          {/* Contextual link */}
+          <div className="mt-3 flex items-center justify-between border-t border-white/[0.06] pt-2 text-[10px] text-slate-400">
+            <span className="flex items-center gap-1 text-slate-300">
+              <CheckCircle2 size={11} className={current.id === "crm" ? "text-amber" : "text-brand"} />
+              <span className="truncate">{current.contextMessage}</span>
+            </span>
+            <Link href={current.href} className="text-brand shrink-0 hover:underline flex items-center gap-0.5">
+              <span>Explore</span>
+              <ArrowRight size={10} />
+            </Link>
           </div>
         </motion.div>
-      </div>
+      </AnimatePresence>
 
-      {/* Simplified Mobile Footer with Replay & CRM Notice */}
-      <div className="flex items-center justify-between border-t border-white/[0.06] bg-white/[0.02] px-3 py-2 text-[9px] text-slate-400">
-        <span>CRM: COMING SOON</span>
+      {/* Bottom Switcher Control */}
+      <div className="border-t border-white/[0.06] bg-white/[0.015] px-3 py-2 flex items-center justify-between text-[10px] font-mono text-slate-400">
+        <span>Part of KAIONEX</span>
         <button
           type="button"
-          onClick={replay}
-          className="flex items-center gap-1 font-medium text-brand hover:underline"
-          aria-label="Replay product showcase"
+          onClick={() => setActiveIdx((prev) => (prev + 1) % SHOWCASE_PRODUCTS.length)}
+          className="flex items-center gap-0.5 text-brand shrink-0 font-semibold"
         >
-          <RotateCcw size={10} />
-          <span>Replay</span>
+          <span>Next</span>
+          <ChevronRight size={11} />
         </button>
       </div>
     </div>

@@ -1,24 +1,78 @@
-import { whyKaionex } from "@/content/faq";
-import { Reveal } from "@/components/ui/Reveal";
-import { Layers3, Eye, MapPin, UsersRound, WifiOff, ArrowRight } from "lucide-react";
+import { Container } from "@/components/ui/Container";
 
-const groups = [
-  { title: "Purpose-Built Software", icon: Layers3, items: [0], signals: ["POS", "EMS", "FMS", "E-Commerce"] },
-  { title: "Operational Visibility", icon: Eye, items: [1, 5], signals: ["Stock", "Orders", "Revenue", "Reports"] },
-  { title: "Multi-location Operations", icon: MapPin, items: [4, 2], signals: ["Counter", "Store", "Warehouse", "Branch"] },
-  { title: "Access & Team Workflows", icon: UsersRound, items: [3, 7], signals: ["Roles", "People", "Tasks", "Communication"] },
-  { title: "Offline-Ready POS", icon: WifiOff, items: [6], signals: ["Billing", "Local records", "Reconnect", "Sync"] },
+const valuePillars = [
+  {
+    number: "01",
+    title: "Purpose-built products",
+    description:
+      "Each KAIONEX product is designed for its dedicated operational scope. Counter billing, workforce rosters, finance ledgers, and digital storefronts each have their own focused workspace.",
+  },
+  {
+    number: "02",
+    title: "Clear operational visibility",
+    description:
+      "Know the real status of counter sales, staff attendance, customer invoicing, and online orders with focused operational views.",
+  },
+  {
+    number: "03",
+    title: "Flexible for different businesses",
+    description:
+      "Deploy individual products across retail counters, cafes, supermarkets, or expanding multi-branch businesses as your needs evolve.",
+  },
+  {
+    number: "04",
+    title: "Offline-ready POS",
+    description:
+      "Keep checkout lines moving during internet interruptions. KAIONEX POS records sales and payments locally, syncing when reconnected.",
+  },
 ];
 
 export function WhyKaionex() {
-  return <section className="cine-benefits">
-    <div className="cine-benefits-header"><p className="cine-eyebrow">WHY KAIONEX</p><h2 className="cine-heading">Less fragmentation.<br /><em>More focus.</em></h2><p>Purpose-built software for different parts of your business.<br />Cohesive tools designed under one brand to help your team operate with clarity.</p></div>
-    <div className="cine-benefits-list">{groups.map(({ title, icon: Icon, items, signals }, index) => <Reveal key={title} y={12}>
-      <article className={"cine-benefit " + (index === 0 ? "cine-benefit-anchor" : "")}>
-        <span className="cine-benefit-number">{String(index + 1).padStart(2, "0")}</span>
-        <div className="cine-benefit-title"><Icon size={24} aria-hidden /><h3>{title}</h3></div>
-        <div className="cine-benefit-content">{items.map(i => <p key={i}>{whyKaionex[i].description}</p>)}<div className="cine-benefit-signals" aria-hidden>{signals.map((label,i) => <span key={label}>{label}{i < signals.length - 1 && <ArrowRight size={12} />}</span>)}</div>{index === 0 && <span className="cine-benefit-future">KAIONEX PRODUCT SUITE · CRM Coming Soon</span>}</div>
-      </article>
-    </Reveal>)}</div>
-  </section>;
+  return (
+    <section className="relative overflow-hidden bg-slate-50 py-16 sm:py-20 text-slate-900 border-y border-slate-200/80">
+      {/* Subtle background grid */}
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.03)_1px,transparent_1px)] bg-[size:48px_48px] opacity-70" />
+      </div>
+
+      <Container wide className="relative z-10">
+        <div className="grid gap-12 lg:grid-cols-[0.38fr_0.62fr] lg:gap-16 xl:gap-20">
+          {/* Left Column 35–40%: Editorial Headline & Context */}
+          <div>
+            <p className="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-emerald-700">
+              Why KAIONEX
+            </p>
+            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-navy-950 sm:text-4xl lg:text-5xl leading-[1.1] text-balance">
+              Software built around real business operations.
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-slate-600">
+              Purpose-built business software under one KAIONEX brand. Choose the products that fit your operational needs.
+            </p>
+          </div>
+
+          {/* Right Column 60–65%: Horizontal Separator Rows (NO BOXES, NO 4-CARD GRIDS) */}
+          <div className="border-t border-slate-200">
+            {valuePillars.map((pillar) => (
+              <div
+                key={pillar.number}
+                className="grid gap-4 border-b border-slate-200 py-5 sm:grid-cols-[60px_1fr] sm:gap-6 sm:py-6"
+              >
+                <span className="font-mono text-sm font-semibold text-slate-400 pt-0.5">
+                  {pillar.number}
+                </span>
+                <div>
+                  <h3 className="font-display text-xl font-bold text-navy-950 tracking-tight sm:text-2xl">
+                    {pillar.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-slate-600 sm:text-base">
+                    {pillar.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
 }

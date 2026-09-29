@@ -78,7 +78,7 @@ export function DashboardPreview() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="border-y border-black/5 bg-paper py-14 sm:py-16 lg:py-20">
+    <section className="cine-dashboard border-y border-black/5 bg-paper py-14 sm:py-16 lg:py-20">
       <Container wide>
         <Reveal>
           <SectionHeading

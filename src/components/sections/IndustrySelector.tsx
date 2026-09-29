@@ -18,7 +18,7 @@ export function IndustrySelector() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="bg-paper py-14 sm:py-16 lg:py-20">
+    <section className="cine-industry bg-paper py-14 sm:py-16 lg:py-20">
       <Container wide>
         <Reveal>
           <SectionHeading
